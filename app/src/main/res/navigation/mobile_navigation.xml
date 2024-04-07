@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.capturahoras.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_capturaFragment"
+            app:destination="@id/capturaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.capturahoras.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.capturahoras.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/capturaFragment"
+        android:name="com.example.capturahoras.ui.Captura.CapturaFragment"
+        android:label="fragment_captura"
+        tools:layout="@layout/fragment_captura" >
+        <argument
+            android:name="trabajador"
+            app:argType="com.example.capturahoras.modelo.Trabajadores"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="asistenacia"
+            app:argType="com.example.capturahoras.modelo.Asistencia"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_capturaFragment_to_detalleFragment2"
+            app:destination="@id/detalleFragment" />
+        <action
+            android:id="@+id/action_capturaFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleFragment"
+        android:name="com.example.capturahoras.ui.detalle.DetalleFragment"
+        android:label="fragment_detalle"
+        tools:layout="@layout/fragment_detalle" >
+        <action
+            android:id="@+id/action_detalleFragment_to_nav_home3"
+            app:destination="@id/nav_home" />
+        <argument
+            android:name="AsistenciaArg"
+            app:argType="com.example.capturahoras.modelo.Asistencia" />
+        <argument
+            android:name="edicion"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+</navigation>

@@ -1,0 +1,102 @@
+plugins {
+    id 'com.android.application'
+}
+
+
+android {
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.capturahoras"
+        minSdk 23
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+
+    //implementation 'com.android.support:appcompat-v7:28.0.0'
+    //implementation 'com.android.support:design:28.0.0'
+       //implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    //implementation 'android.arch.lifecycle:livedata:1.1.1'
+    //implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+    //implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    //implementation 'android.arch.navigation:navigation-ui:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //implementation 'androidx.appcompat:appcompat:1.2.0'
+    //implementation 'com.google.android.material:material:1.2.1'
+    //implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    //implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.cardview:cardview:1.0.0"
+    apply plugin: "androidx.navigation.safeargs"
+//escaner
+    // LIBRERÍA ZXING
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+//conexion a apis
+    implementation files('libs/bridge-5.1.2.jar')
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+    //implementation 'com.google.code.gson:gson:2.8.6'
+
+/*
+    //def work_version = "2.9.0"
+    //workerManager
+    implementation "androidx.work:work-runtime:2.9.0"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:2.9.0"
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:2.9.0"
+    //GCMNetworkManager support
+    implementation "androidx.work:work-gcm:2.9.0"
+    //Test helpers
+    androidTestImplementation "androidx.work:work-testing:2.9.0"*/
+    def work_version = "2.7.1"//"2.9.0"//"2.4.0"
+    //workerManager
+    implementation "androidx.work:work-runtime:$work_version"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+    //GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_version"
+    //Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
+
+}

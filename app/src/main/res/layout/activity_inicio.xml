@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".inicioActivity">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="211dp"
+                android:layout_height="168dp"
+                android:layout_marginTop="96dp"
+                android:background="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_usuario"
+                android:layout_width="284dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="36dp"
+                android:gravity="center_vertical"
+                android:hint="USUARIO"
+                android:singleLine="true"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <Button
+                android:id="@+id/btn_iniciar"
+                android:layout_width="284dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="36dp"
+                android:text="Iniciar"
+                app:layout_constraintEnd_toEndOf="@+id/et_usuario"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/et_usuario"
+                app:layout_constraintTop_toBottomOf="@+id/et_usuario" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="66dp"
+                android:layout_height="63dp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_usuario"
+                app:layout_constraintEnd_toStartOf="@+id/et_usuario"
+                app:layout_constraintTop_toTopOf="@+id/et_usuario"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

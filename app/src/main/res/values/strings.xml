@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">CapturaHoras</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_fin_jornada">Finalizar Jornada</string>
+    <string name="action_enviar">Enviar Informacion</string>
+    <string name="action_actualizarCampos">Actualziar Campos</string>
+    <string name="action_importar">Importar catalogos</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="btn_enviar">Enviar</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_cerrar">Salir</string>
+    <string name="btn_seleccionar">seleccionar</string>
+    <string name="btn_acepatar">OK</string>
+    <string name="btn_Cancelar">CANCELAR</string>
+
+    <string name="msn_titulo_error">Error!!</string>
+    <string name="msn_titulo_SeleccionUnidad">Seleccion de unidad</string>
+    <string name="msn_titulo_CapturaPrecio">Precios de combustibles</string>
+    <string name="msn_titulo_CapturaTiposVehiculos">Seleccione un tipo de unidad</string>
+    <string name="msn_titulo_modificarOdometro">Cambiar odometro</string>
+    <string name="msn_titulo_Menu">Seleccione una opcion</string>
+    <string name="msn_titulo_CapturaUrl">Servidor</string>
+    <string name="msn_titulo_CapturaMail">Ingrese correos</string>
+    <string name="msn_titulo_Selec_trabajador">Seleccion de trabajador</string>
+    <string name="msn_titulo_Selec_campos">Seleccion de campos</string>
+    <string name="msn_titulo_Selec_etapa">Seleccion de etapas</string>
+    <string name="msn_titulo_Selec_cce">Seleccion de CCE</string>
+    <string name="msn_titulo_Selec_producto">Seleccion de producto</string>
+    <string name="msn_titulo_Enviar">Enviar correo</string>
+    <string name="msn_titulo_actualziarCatalogos">Actualziacion de catalogos</string>
+    <string name="msn_titulo_descargaCatalog">Descarga de catalogos</string>
+    <string name="msn_titulo_cargaCatalog">Cargando datos</string>
+    <string name="msn_titulo_enviar">Envio de datos</string>
+    <string name="msn_precio_mensaje">Ingrese un precio</string>
+    <string name="msn_precio_titulo">catura de precio</string>
+    <string name="msn_titulo_cambiarVehiculo">Cambio de vehiculo</string>
+
+    <string name="msn_Error_precio">Los campos de precios no pueden estar vacio</string>
+    <string name="msn_Error_url">El campo servidor no debe de estar vacio</string>
+    <string name="msn_Error_mails">El campo correos no debe de estar vacio</string>
+    <string name="msn_Error_area">El campo Area no debe de estar vacio</string>
+    <string name="msn_Error_usuario">El campo Usuario no debe de estar vacio</string>
+    <string name="msn_decision_unidad">¿esta de acuerdo en asignar el codigo a la unidad?</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_simple_scanner">SimpleScannerActivity</string>
+</resources>

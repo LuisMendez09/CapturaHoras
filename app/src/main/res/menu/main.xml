@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_importar"
+        android:orderInCategory="100"
+        android:title="@string/action_importar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_fin_jornada"
+        android:orderInCategory="100"
+        android:title="@string/action_fin_jornada"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_enviar"
+        android:orderInCategory="100"
+        android:title="@string/action_enviar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_actualizarCampos"
+        android:orderInCategory="100"
+        android:title="@string/action_actualizarCampos"
+        app:showAsAction="never" />
+
+</menu>
