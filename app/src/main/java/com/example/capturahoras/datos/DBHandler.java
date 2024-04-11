@@ -127,7 +127,8 @@ public class DBHandler extends SQLiteOpenHelper  {
                 + ICamposTrabajadosDAO.ID_ACTIVIDAD + " INTEGER,"
                 + ICamposDAO.PRODUCTO+ " INTEGER,"
                 + ICamposDAO.CCE+ " INTEGER,"
-                + ICamposDAO.ETAPA+ " INTEGER"+ ")";
+                + ICamposDAO.ETAPA+ " INTEGER,"
+                + ICamposTrabajadosDAO.HORAS_TRABAJADAS+ " REAL"+ ")";
 
         sqLiteDatabase.execSQL(CREATE_TABLE);
         FileLog.v(Complementos.TAG_BDHANDLER,"TERMINA CREACION DE LAS TABLAS CAMPOS TRABAJADOS");

@@ -16,6 +16,8 @@ public class Campos implements Serializable {
     private Etapas etapaSeleccionada;
     private CCE cceSeleccionada;
 
+    private float horas_trabajadas;
+
     public int getId_canposTrabajados() {
         return id_canposTrabajados;
     }
@@ -90,6 +92,14 @@ public class Campos implements Serializable {
         this.cceSeleccionada = cceSeleccionada;
     }
 
+    public float getHoras_trabajadas() {
+        return horas_trabajadas;
+    }
+
+    public void setHoras_trabajadas(float horas_trabajadas) {
+        this.horas_trabajadas = horas_trabajadas;
+    }
+
     @Override
     public String toString() {
         return "Campos{" +
@@ -100,8 +110,6 @@ public class Campos implements Serializable {
     }
 
     public JsonObject getJson(){
-
-
             JsonObject v = new JsonObject();
             v.addProperty("clave",getClave());
             v.addProperty("descripcion",getDescripcion());

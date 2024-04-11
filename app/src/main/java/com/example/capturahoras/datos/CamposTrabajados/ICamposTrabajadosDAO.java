@@ -14,6 +14,7 @@ public interface ICamposTrabajadosDAO extends CRUD<CamposTrabajados> {
     String ID_ASISTENCIA ="idAsistencia";
     String ID_ACTIVIDAD ="idActividad";
     String ENVIADO ="enviado";
+    String HORAS_TRABAJADAS = "Horas_Trabajadas";
 
     String PRODUCTO="idProducto";
     String CCE="idCce";

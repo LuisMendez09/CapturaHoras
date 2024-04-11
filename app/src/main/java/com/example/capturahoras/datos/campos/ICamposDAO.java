@@ -14,6 +14,7 @@ public interface ICamposDAO extends CRUD<Campos> {
     String CCE="idCce";
     String ETAPA="idEtapa";
 
+
     void reiniciarTabla();
     Campos leerPorDescripcion(String descripcion);
 }

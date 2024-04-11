@@ -13,9 +13,9 @@ public class CamposTrabajados implements Serializable{
     private int id;
     private Asistencia asistencia;
     private Actividades actividades;
-    private List<Campos> campos;
     private TablasProrrateo tablasProrrateo;
 
+    private List<Campos> campos;
 
     private int enviado;
 

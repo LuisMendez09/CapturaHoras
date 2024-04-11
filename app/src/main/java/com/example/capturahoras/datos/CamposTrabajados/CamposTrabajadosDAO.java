@@ -60,6 +60,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                 values.put(PRODUCTO,c.getProductoSeleccionado().getClave());
                 values.put(CCE,c.getCceSeleccionada().getClave());
                 values.put(ETAPA,c.getEtapaSeleccionada().getClave());
+                values.put(HORAS_TRABAJADAS,c.getHoras_trabajadas());
                 values.put(ENVIADO,0);
 
                 insert = data.insert(TABLE_CAMPOSTRABAJADOS, null, values);//guardar mallas
@@ -74,6 +75,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
             values.put(ID_TABLAPRORRATEO ,o.getTablaProrrateo().getId());
             values.put(ID_ACTIVIDAD,o.getActividades().getClave());
             values.put(ID_ASISTENCIA,o.getAsistencia().getId());
+            values.put(HORAS_TRABAJADAS,o.getTablaProrrateo().getHoras_trabajadas());
             values.put(ENVIADO,0);
 
             insert = data.insert(TABLE_CAMPOSTRABAJADOS, null, values);// guardar tabla
@@ -107,6 +109,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                     values.put(CCE,c.getCceSeleccionada().getClave());
                     values.put(ETAPA,c.getEtapaSeleccionada().getClave());
                     values.put(ENVIADO,o.getEnviado());
+                    values.put(HORAS_TRABAJADAS,c.getHoras_trabajadas());
 
                     i = data.update(TABLE_CAMPOSTRABAJADOS, values, ID + " = ?",new String[]{String.valueOf(c.getId_canposTrabajados())});//guardar mallas
                     new DatosCampoDAO(context).actualizar(c);
@@ -120,6 +123,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                 values.put(ID_ACTIVIDAD,o.getActividades().getClave());
                 values.put(ID_ASISTENCIA,o.getAsistencia().getId());
                 values.put(ENVIADO,o.getEnviado());
+                values.put(HORAS_TRABAJADAS,o.getTablaProrrateo().getHoras_trabajadas());
 
                 i = data.update(TABLE_CAMPOSTRABAJADOS, values, ID + " = ?",
                         new String[]{String.valueOf(o.getId())});// guardar tabla
@@ -169,8 +173,11 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                 ct.setAsistencia(new AsistenciaDAO(context).leerPorId(cursor.getInt(3)));
                 ct.setEnviado(cursor.getInt(4));
 
-                if(!cursor.isNull(2))
+                if(!cursor.isNull(2)){
                     ct.setTablaProrrateo(new TablaProrrateoDAO(context).leerPorId(cursor.getInt(2)));
+                    ct.getTablaProrrateo().setHoras_trabajadas(cursor.getFloat(9));
+                }
+
 
                 if(!cursor.isNull(1)){
                     if(ct.getCampo() == null)
@@ -183,6 +190,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                     campos.setProductoSeleccionado(new DatosProductoDAO(context).leerPorId(cursor.getInt(6)));
                     campos.setCceSeleccionada(new DatosCceDAO(context).leerPorId(cursor.getInt(7)));
                     campos.setEtapaSeleccionada(new DatosEtapaDAO(context).leerPorId(cursor.getInt(8)));
+                    campos.setHoras_trabajadas(cursor.getFloat(9));
                     cam.add(campos);
                     ct.setCampos(cam);
                 }
