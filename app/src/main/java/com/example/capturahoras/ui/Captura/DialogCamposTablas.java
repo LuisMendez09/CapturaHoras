@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,8 @@ public class DialogCamposTablas extends DialogFragment {
         cta.setSupportFragmentManager(getActivity().getSupportFragmentManager());
         lv_campos.setAdapter(cta);
 
+
+
         builder.setTitle(R.string.msn_titulo_Selec_campos)
                 .setView(root)
                 .setPositiveButton(R.string.btn_acepatar, (dialogInterface, i) -> {
@@ -69,7 +72,7 @@ public class DialogCamposTablas extends DialogFragment {
 
 
         AlertDialog alertDialog = builder.create();
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
 
         return alertDialog;

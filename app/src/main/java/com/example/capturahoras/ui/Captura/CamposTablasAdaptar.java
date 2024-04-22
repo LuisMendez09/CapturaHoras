@@ -1,11 +1,15 @@
 package com.example.capturahoras.ui.Captura;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +50,7 @@ public class CamposTablasAdaptar extends ArrayAdapter<CamposTrabajados> implemen
         convertView = inflater.inflate(R.layout.item_select_campos,parent,false);
 
         TextView actividad = convertView.findViewById(R.id.tv_actividad);
+        EditText horas = convertView.findViewById(R.id.tv_horasActividad);
         TextView campos = convertView.findViewById(R.id.tv_camposTabla);
         Button btn_campos =convertView.findViewById(R.id.btn_campos);
         TextView tablas = convertView.findViewById(R.id.tv_tablas);
@@ -57,8 +62,29 @@ public class CamposTablasAdaptar extends ArrayAdapter<CamposTrabajados> implemen
 
         CamposTrabajados ct = this.camposTrabajados.get(position);
         actividad.setText(ct.getActividades().getDescripcion());
+        if(ct.getHoras() != 0)
+            horas.setText(ct.getHoras()+"");
 
         iniciarCampos(ct.getCampo(),ct.getTablaProrrateo());
+
+        horas.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.toString().equals(""))
+                    return;
+
+                camposTrabajados.get(position).setHoras(Float.parseFloat(charSequence.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         btn_campos.setOnClickListener(new View.OnClickListener() {
             @Override

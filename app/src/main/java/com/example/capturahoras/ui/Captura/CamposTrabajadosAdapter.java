@@ -41,9 +41,12 @@ public class CamposTrabajadosAdapter extends ArrayAdapter<CamposTrabajados> {
         TextView actividad = convertView.findViewById(R.id.tv_lvactividad);
         TextView campos = convertView.findViewById(R.id.tv_lvcampos);
         TextView tabla = convertView.findViewById(R.id.tv_lvtabla);
+        TextView horas = convertView.findViewById(R.id.tv_horasActividad);
 
         CamposTrabajados ct = this.camposTrabajados.get(position);
         actividad.setText(ct.getActividades().getDescripcion());
+        horas.setText(ct.getHoras()+"");
+
         if(ct.getTablaProrrateo() != null)
             tabla.setText(ct.getTablaProrrateo().getDescripcion());
 

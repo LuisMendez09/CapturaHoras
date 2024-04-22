@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -134,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight=".3"
-                android:text="CONTINUAR" />
+                android:text="GUARDAR" />
 
             <Button
                 android:id="@+id/bt_cancelar"

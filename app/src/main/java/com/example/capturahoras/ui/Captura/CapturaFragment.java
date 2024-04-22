@@ -1,10 +1,12 @@
 package com.example.capturahoras.ui.Captura;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -12,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,8 +61,8 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
     private Asistencia asistencias;
     private Trabajadores trabajador;
     private List<Actividades> actividadesS = new ArrayList<>();
-    private HashMap<String,List<Campos>>  campos = new HashMap<>();
-    private HashMap<String,TablasProrrateo> tabla= new HashMap<>();
+    //private HashMap<String,List<Campos>>  campos = new HashMap<>();
+    //private HashMap<String,TablasProrrateo> tabla= new HashMap<>();
 
     private HashMap<String,CamposTrabajados> hct = new HashMap<>();
 
@@ -99,6 +102,7 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
             DialogoGuardarCambio();
         });
         cancelar.setOnClickListener(view1 -> NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false));
+
 
         return view;
     }
@@ -140,10 +144,10 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         Set<String> strings = hct.keySet();
         for (String key :strings) {
             actividadesS.add(hct.get(key).getActividades());
-            if(!campos.containsKey(key))
+            /*if(!campos.containsKey(key))
                 campos.put(key,hct.get(key).getCampo());
             if(!tabla.containsKey(key))
-                tabla.put(key,hct.get(key).getTablaProrrateo());
+                tabla.put(key,hct.get(key).getTablaProrrateo());*/
         }
 
         List<CamposTrabajados> values = new ArrayList<>();
@@ -209,21 +213,21 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
 
         asistencia.setCamposTrabajados(hct);
 
-        boolean mallas = false;
+        /*boolean mallas = false;
         Collection<CamposTrabajados> values = hct.values();
         for (CamposTrabajados ct :hct.values()) {
             if(ct.getCampo().size() >0){
                 mallas = true;
                 break;
             }
-        }
+        }*/
 
-        if(mallas){
+        /*if(mallas){
             CapturaFragmentDirections.ActionCapturaFragmentToDetalleFragment2 action = CapturaFragmentDirections.actionCapturaFragmentToDetalleFragment2(asistencia);
             action.setEdicion(false);
             Navigation.findNavController(getActivity(),getId()).navigate(action);
             return;
-        }
+        }*/
 
         AsistenciaControl.guardar(this.getContext(),asistencia);
         NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false);
@@ -248,14 +252,14 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         }
 
         asistencias.setCamposTrabajados(hct);
-        if(campos.size()==0){
-            AsistenciaControl.actualizar(this.getContext(),asistencias);
-            NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false);
-        }
+        //if(campos.size()==0){
+        AsistenciaControl.actualizar(this.getContext(),asistencias);
+        NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false);
+        //}
 
-        CapturaFragmentDirections.ActionCapturaFragmentToDetalleFragment2 action = CapturaFragmentDirections.actionCapturaFragmentToDetalleFragment2(asistencias);
-        action.setEdicion(true);
-        Navigation.findNavController(getActivity(),getId()).navigate(action);
+        //CapturaFragmentDirections.ActionCapturaFragmentToDetalleFragment2 action = CapturaFragmentDirections.actionCapturaFragmentToDetalleFragment2(asistencias);
+        //action.setEdicion(true);
+        //Navigation.findNavController(getActivity(),getId()).navigate(action);
     }
 
     public boolean validar(){
@@ -271,9 +275,34 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
             DialogoInf("ERROR!!, Favor de ingresar la hora inicial");
             return false;
         }
-        if(campos.size()==0 && tabla == null){
-            DialogoInf("ERROR!!, Favor de seleccionar campos o una tabla de prorrateo");
-            return false;
+        //if((campos.size()==0 && tabla.size() == 0) && hct.size() == 0){
+        //    DialogoInf("ERROR!!, Favor de seleccionar campos o una tabla de prorrateo");
+        //    return false;
+        //}
+
+        int totalM;
+        int tabla;
+        for (CamposTrabajados ct :hct.values()){
+            totalM = 0;
+            tabla = 0;
+            if(ct.getCampo() != null){
+                if(ct.getCampo().size() != 0)
+                    totalM = ct.getCampo().size();
+            }
+
+            if(ct.getTablaProrrateo() != null)
+                tabla = 1;
+
+            if(totalM==0 && tabla==0){
+                DialogoInf("ERROR!!, Favor de seleccionar campos o una tabla de prorrateo");
+                return false;
+            }
+
+
+            if(ct.getHoras() == 0){
+                DialogoInf("ERROR!!, Favor ingresar horas para la actividad "+ct.getActividades().getDescripcion());
+                return false;
+            }
         }
 
         return true;
@@ -374,10 +403,17 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
     public void onItemsSelectCamposTrabajados(HashMap<String, CamposTrabajados> hct) {
         Set<String> key = hct.keySet();
         List<CamposTrabajados> values = new ArrayList<>();
-
+        et_horas.setText("");
         for (String a : key) {
             CamposTrabajados ct = hct.get(a);
             values.add(ct);
+
+            float v =0;
+            if(!et_horas.getText().toString().equals(""))
+                v = Float.parseFloat(et_horas.getText().toString());
+
+             v = v + ct.getHoras();
+            et_horas.setText(v+"");
         }
 
         CamposTrabajadosAdapter cta = new CamposTrabajadosAdapter(getContext(),values);

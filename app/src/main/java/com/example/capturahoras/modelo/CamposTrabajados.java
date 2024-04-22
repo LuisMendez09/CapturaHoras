@@ -15,7 +15,7 @@ public class CamposTrabajados implements Serializable{
     private Actividades actividades;
     private List<Campos> campos;
     private TablasProrrateo tablasProrrateo;
-
+    private float horas;
 
     private int enviado;
 
@@ -75,6 +75,14 @@ public class CamposTrabajados implements Serializable{
         this.actividades = actividades;
     }
 
+    public float getHoras() {
+        return horas;
+    }
+
+    public void setHoras(float horas) {
+        this.horas = horas;
+    }
+
     public List<JsonObject> getJson(int idAsistencia){
         List<JsonObject> values = new ArrayList<>();
 
@@ -88,8 +96,11 @@ public class CamposTrabajados implements Serializable{
 
             v.addProperty("id_asistencia",idAsistencia);
             v.addProperty("id_actividad",actividades.getClave());
-            if(tablasProrrateo != null)
+            if(tablasProrrateo != null){
                 v.addProperty("id_tablaProrrateo",tablasProrrateo.getId());
+                v.addProperty("horas_trabajadas",horas);
+            }
+
 
             if(campos != null){
                 if(campos.size()>0){
@@ -98,6 +109,7 @@ public class CamposTrabajados implements Serializable{
                     v.addProperty("etapa",campos.get(i).getEtapaSeleccionada().getClave());
                     v.addProperty("cce",campos.get(i).getCceSeleccionada().getClave());
                     v.addProperty("ccg",31);
+                    v.addProperty("horas_trabajadas",horas);
                 }
             }
 
