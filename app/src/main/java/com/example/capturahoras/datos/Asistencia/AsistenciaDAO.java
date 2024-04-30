@@ -11,8 +11,10 @@ import com.example.capturahoras.datos.Actividades.DatosActividadesDAO;
 import com.example.capturahoras.datos.CamposTrabajados.CamposTrabajadosDAO;
 import com.example.capturahoras.datos.DBHandler;
 import com.example.capturahoras.datos.Trabajadores.DatosTrabajadoresDAO;
+import com.example.capturahoras.datos.Trabajadores.ITrabajadoresDAO;
 import com.example.capturahoras.modelo.Asistencia;
 import com.example.capturahoras.modelo.Settings;
+import com.example.capturahoras.modelo.Trabajadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,16 +196,22 @@ public class AsistenciaDAO implements IAsistenciaDAO{
     public Asistencia getAsistenciaTrabajadorDia(int idTrabajador) {
         Asistencia asistencia = null;
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_ASISTENCIA  +" where " + FECHA_TEXTO + " = '"+ Complementos.getDateActualToString() +"' AND "
-                + ID_TRABAJADOR + " = "+ idTrabajador;
+        String selectQuery = "SELECT * FROM " + TABLE_ASISTENCIA +" as a "
+                + " inner join "+ ITrabajadoresDAO.TABLE_TRABAJADORES +" as t on t."+ITrabajadoresDAO.CLAVE+"=a."+ID_TRABAJADOR
+                +" where " + FECHA_TEXTO + " = '"+ Complementos.getDateActualToString() +"' AND "+ ID_TRABAJADOR + " = "+ idTrabajador;
         SQLiteDatabase data = db.getWritableDatabase();
         Cursor cursor = data.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
+                Trabajadores t = new Trabajadores();
+                t.setNumero(cursor.getInt(8));
+                t.setNombre(cursor.getString(9));
+                t.setEstatusInt(cursor.getInt(10));
+
                 asistencia = new Asistencia();
                 asistencia.setFecha(cursor.getLong(0));
-                asistencia.setTrabajador(new DatosTrabajadoresDAO(context).leerPorId(cursor.getInt(1)));
+                asistencia.setTrabajador(t);
                 asistencia.setTotalHoras(cursor.getFloat(2));
                 asistencia.setId(cursor.getInt(3));
                 asistencia.setDispositivo(cursor.getString(5));
@@ -211,7 +219,6 @@ public class AsistenciaDAO implements IAsistenciaDAO{
                 asistencia.setHoraFinal(cursor.getLong(7));
                 asistencia.setEnviado(cursor.getInt(8));
                 asistencia.setCamposTrabajados(new CamposTrabajadosDAO(context).listarCamposTrabajados(asistencia.getId()));
-
             } while (cursor.moveToNext());
         }
         // return contact list

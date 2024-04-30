@@ -14,4 +14,7 @@ public class Settings {
     public static String USUARIO="";
     public static int FIN_JORNADA =0;
 
+    public static  Object[] valor(){
+        return new Object[]{DATE,FECHA,URL,MAILS,USUARIO,FIN_JORNADA};
+    }
 }

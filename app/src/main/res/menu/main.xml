@@ -17,10 +17,11 @@
         android:orderInCategory="100"
         android:title="@string/action_enviar"
         app:showAsAction="never" />
-    <item
+    <!--<item
         android:id="@+id/action_actualizarCampos"
         android:orderInCategory="100"
         android:title="@string/action_actualizarCampos"
-        app:showAsAction="never" />
+        android:visibility="gone"
+        app:showAsAction="never" />-->
 
 </menu>

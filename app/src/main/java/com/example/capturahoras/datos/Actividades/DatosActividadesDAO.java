@@ -45,8 +45,24 @@ public class DatosActividadesDAO implements IActividadesDAO {
 
         cursor.close();
         data.close();
-        FileLog.v(Complementos.TAG_BDHANDLER,"Total Trabajadores "+actividades.size());
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Actividades "+actividades.size());
         return actividades;
+    }
+
+    @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_ACTIVIDADES ;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total actividades "+total);
+        return total;
     }
 
     @Override
@@ -70,7 +86,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
         cursor.close();
         data.close();
         if(actividades != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Trabajador "+actividades.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"actividad "+actividades.toString());
 
         return actividades;
     }
@@ -96,7 +112,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
         cursor.close();
         data.close();
         if(actividades != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Trabajador "+actividades.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"actividad "+actividades.toString());
 
         return actividades;
     }

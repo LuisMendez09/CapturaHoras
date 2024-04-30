@@ -42,8 +42,24 @@ public class DatosEtapaDAO implements IEtapasDAO{
 
         cursor.close();
         data.close();
-        FileLog.v(Complementos.TAG_BDHANDLER,"Total Campo "+etapas.size());
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Etapas "+etapas.size());
         return etapas;
+    }
+
+    @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_ETAPAS;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total ETAPAS "+total);
+        return total;
     }
 
     @Override
@@ -66,7 +82,7 @@ public class DatosEtapaDAO implements IEtapasDAO{
         cursor.close();
         data.close();
         if(etapa != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+etapa.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"ETAPAS "+etapa.toString());
 
         return etapa;
     }
@@ -91,7 +107,7 @@ public class DatosEtapaDAO implements IEtapasDAO{
 
     @Override
     public void actualizar(Etapas o) {
-        FileLog.v(Complementos.TAG_BDHANDLER,"ACTUALIZAR CAMPO "+o.toString());
+        FileLog.v(Complementos.TAG_BDHANDLER,"ACTUALIZAR ETAPA "+o.toString());
         int i = -1;
         try{
             SQLiteDatabase data = db.getWritableDatabase();
@@ -115,7 +131,7 @@ public class DatosEtapaDAO implements IEtapasDAO{
 
     @Override
     public void reiniciarTabla() {
-        FileLog.v(Complementos.TAG_BDHANDLER,"INICIA CREACION DE LAS TABLAS PRODUCTOS");
+        FileLog.v(Complementos.TAG_BDHANDLER,"INICIA CREACION DE LAS TABLAS ETAPAS");
         SQLiteDatabase data = db.getWritableDatabase();
         data.execSQL("DROP TABLE IF EXISTS " + TABLE_ETAPAS);
 
@@ -147,7 +163,7 @@ public class DatosEtapaDAO implements IEtapasDAO{
         cursor.close();
         data.close();
         if(etapa != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+etapa.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"ETAPAS "+etapa.toString());
 
         return etapa;
     }

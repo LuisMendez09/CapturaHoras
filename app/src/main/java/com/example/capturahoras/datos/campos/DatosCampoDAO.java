@@ -9,10 +9,16 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.capturahoras.complemento.Complementos;
 import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.datos.CCE.DatosCceDAO;
+import com.example.capturahoras.datos.CCE.ICceDAO;
 import com.example.capturahoras.datos.DBHandler;
 import com.example.capturahoras.datos.Etapas.DatosEtapaDAO;
+import com.example.capturahoras.datos.Etapas.IEtapasDAO;
 import com.example.capturahoras.datos.Productos.DatosProductoDAO;
+import com.example.capturahoras.datos.Productos.IProductosDAO;
+import com.example.capturahoras.modelo.CCE;
 import com.example.capturahoras.modelo.Campos;
+import com.example.capturahoras.modelo.Etapas;
+import com.example.capturahoras.modelo.Productos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +37,10 @@ public class DatosCampoDAO implements ICamposDAO{
         ArrayList<Campos> campos = new ArrayList<Campos>();
         Campos campo = null;
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_CAMPOS ;
+        String selectQuery = "SELECT * FROM " + TABLE_CAMPOS + " as c "
+                +" inner join "+ IProductosDAO.TABLE_PRODUCTOS +" as p on p."+IProductosDAO.CLAVE+"=c." +PRODUCTO
+                +" inner join "+ ICceDAO.TABLE_CCE +" as cc on cc."+ICceDAO.CLAVE+"=c."+CCE
+                +" inner join "+ IEtapasDAO.TABLE_ETAPAS +" as e on e."+IEtapasDAO.CLAVE+"=c."+ETAPA;
         SQLiteDatabase data = db.getWritableDatabase();
         Cursor cursor = data.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -41,9 +50,21 @@ public class DatosCampoDAO implements ICamposDAO{
                 campo.setClave(cursor.getInt(0));
                 campo.setSuperficie(cursor.getFloat(1));
                 campo.setDescripcion(cursor.getString(2));
-                campo.setProductoSeleccionado(new DatosProductoDAO(context).leerPorId(cursor.getInt(3)));
-                campo.setCceSeleccionada(new DatosCceDAO(context).leerPorId(cursor.getInt(4)));
-                campo.setEtapaSeleccionada(new DatosEtapaDAO(context).leerPorId(cursor.getInt(5)));
+
+                Productos p = new Productos();
+                p.setClave(cursor.getInt(6));
+                p.setDescripcion(cursor.getString(7));
+                campo.setProductoSeleccionado(p);
+
+                com.example.capturahoras.modelo.CCE cce = new com.example.capturahoras.modelo.CCE();
+                cce.setClave(cursor.getInt(8));
+                cce.setDescripcion(cursor.getString(9));
+                campo.setCceSeleccionada(cce);
+
+                Etapas e = new Etapas();
+                e.setClave(cursor.getInt(10));
+                e.setDescripcion(cursor.getString(11));
+                campo.setEtapaSeleccionada(e);
 
                 campos.add(campo);
             } while (cursor.moveToNext());
@@ -54,6 +75,22 @@ public class DatosCampoDAO implements ICamposDAO{
         data.close();
         FileLog.v(Complementos.TAG_BDHANDLER,"Total Campo "+campos.size());
         return campos;
+    }
+
+    @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_CAMPOS;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total campos "+total);
+        return total;
     }
 
     @Override

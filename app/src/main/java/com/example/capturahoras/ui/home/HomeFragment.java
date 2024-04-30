@@ -3,13 +3,9 @@ package com.example.capturahoras.ui.home;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capturahoras.R;
 import com.example.capturahoras.complemento.Complementos;
@@ -28,7 +21,6 @@ import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.controlador.AsistenciaControl;
 import com.example.capturahoras.controlador.SesionControl;
 import com.example.capturahoras.controlador.TrabajadoresControl;
-import com.example.capturahoras.datos.Trabajadores.DatosTrabajadoresDAO;
 import com.example.capturahoras.modelo.Asistencia;
 import com.example.capturahoras.modelo.Trabajadores;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,9 +45,12 @@ public class HomeFragment extends Fragment {
                 int i = Integer.parseInt(result.getContents());
                 Trabajadores t = TrabajadoresControl.getTrabajadoresPorId(this.getContext(), i);
 
-                HomeFragmentDirections.ActionNavHomeToCapturaFragment action = HomeFragmentDirections.actionNavHomeToCapturaFragment();
-                action.setTrabajador(t);
-                action.setAsistenacia(AsistenciaControl.getAsistenciaTrabajador(this.getContext(),t.getNumero()));
+                HomeFragmentDirections.ActionNavHomeToCapturaFragment action = HomeFragmentDirections.actionNavHomeToCapturaFragment(t.getNumero());
+                Asistencia at = AsistenciaControl.getAsistenciaTrabajadorDia(this.getContext(), t.getNumero());
+                if(at!=null)
+                    action.setIdAsistencia(at.getId());
+                //action.setTrabajador(t);
+                //action.setAsistenacia(AsistenciaControl.getAsistenciaTrabajador(this.getContext(),t.getNumero()));
                 Navigation.findNavController(getActivity(),fabBarcode.getId()).navigate(action);
             }catch (Exception e){
                 DialogoInf("Error al obtener el numero de trabajador");
@@ -132,9 +127,11 @@ public class HomeFragment extends Fragment {
         lv_asistenacia.setOnItemClickListener((adapterView, view, i, l) -> {
             if(SesionControl.validarSesion()){
                 Asistencia item = asistenciaAdaptar.getItem(i);
-                HomeFragmentDirections.ActionNavHomeToCapturaFragment action = HomeFragmentDirections.actionNavHomeToCapturaFragment();
-                action.setTrabajador(item.getTrabajador());
-                action.setAsistenacia(item);
+                HomeFragmentDirections.ActionNavHomeToCapturaFragment action
+                        = HomeFragmentDirections.actionNavHomeToCapturaFragment(item.getTrabajador().getNumero());
+                action.setIdAsistencia(item.getId());
+                //action.setTrabajador(item.getTrabajador());
+                //action.setAsistenacia(item);
                 Navigation.findNavController(getActivity(),fabBarcode.getId()).navigate(action);
             }else{
                 DialogoInf("SESION FINALIZADA");

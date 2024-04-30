@@ -1,21 +1,16 @@
 package com.example.capturahoras.ui.Captura;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,22 +23,19 @@ import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.controlador.AsistenciaControl;
 import com.example.capturahoras.controlador.CamposControl;
 import com.example.capturahoras.controlador.SesionControl;
-import com.example.capturahoras.controlador.TablasControl;
+import com.example.capturahoras.controlador.TrabajadoresControl;
 import com.example.capturahoras.modelo.Actividades;
 import com.example.capturahoras.modelo.Asistencia;
 import com.example.capturahoras.modelo.Campos;
 import com.example.capturahoras.modelo.CamposTrabajados;
 import com.example.capturahoras.modelo.Trabajadores;
 import com.example.capturahoras.modelo.TablasProrrateo;
-import com.example.capturahoras.ui.home.HomeFragmentDirections;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -66,7 +58,7 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
 
     private HashMap<String,CamposTrabajados> hct = new HashMap<>();
 
-    CharSequence[] arrayCampos;
+    //CharSequence[] arrayCampos;
 
 
     @Override
@@ -81,8 +73,10 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         View view = inflater.inflate(R.layout.fragment_captura, container, false);
 
         CapturaFragmentArgs capturaArgs = CapturaFragmentArgs.fromBundle(getArguments());
-        trabajador = capturaArgs.getTrabajador();
-        asistencias = capturaArgs.getAsistenacia();
+        trabajador = TrabajadoresControl.getTrabajadoresPorId(getContext(),capturaArgs.getIdTrabajador());
+        asistencias = null;
+        if(capturaArgs.getIdAsistencia()!=-1)
+            asistencias = AsistenciaControl.getAsistenciaTrabajadorDia(getContext(),capturaArgs.getIdTrabajador());
 
         tv_nombre = view.findViewById(R.id.tv_nombre);
         tv_numero = view.findViewById(R.id.tv_numero);
@@ -114,7 +108,7 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         tv_numero.setText(String.valueOf(trabajador.getNumero()));
         tv_nombre.setText(trabajador.getNombre());
 
-        arrayCampos = CamposControl.getCamposArray(this.getContext());
+        //arrayCampos = CamposControl.getCamposArray(this.getContext());
 
         iniciarEdicion();
 

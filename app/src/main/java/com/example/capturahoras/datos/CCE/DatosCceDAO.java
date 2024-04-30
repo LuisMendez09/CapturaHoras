@@ -55,7 +55,7 @@ public class DatosCceDAO implements ICceDAO{
         cursor.close();
         data.close();
         if(ccee != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+ccee.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"CCE "+ccee.toString());
 
         return ccee;
     }
@@ -82,8 +82,24 @@ public class DatosCceDAO implements ICceDAO{
 
         cursor.close();
         data.close();
-        FileLog.v(Complementos.TAG_BDHANDLER,"Total Campo "+cces.size());
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total CCE "+cces.size());
         return cces;
+    }
+
+    @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_CCE ;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total CCE "+total);
+        return total;
     }
 
     @Override
@@ -106,14 +122,14 @@ public class DatosCceDAO implements ICceDAO{
         cursor.close();
         data.close();
         if(ccee != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+ccee.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"CCE "+ccee.toString());
 
         return ccee;
     }
 
     @Override
     public void guardar(CCE o) {
-        FileLog.v(Complementos.TAG_BDHANDLER,"AÑADIR Etapa "+o.toString());
+        FileLog.v(Complementos.TAG_BDHANDLER,"AÑADIR CCE "+o.toString());
         SQLiteDatabase data = db.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -123,7 +139,7 @@ public class DatosCceDAO implements ICceDAO{
         Long insert = data.insert(TABLE_CCE, null, values);
 
         if(insert ==-1)
-            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Etapa ");
+            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION CCE ");
         db.close(); // Closing database connection
 
         return;

@@ -10,4 +10,5 @@ public interface IProductosDAO extends CRUD<Productos> {
 
     void reiniciarTabla();
     Productos leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 }

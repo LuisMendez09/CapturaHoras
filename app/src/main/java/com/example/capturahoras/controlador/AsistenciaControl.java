@@ -26,7 +26,7 @@ public class AsistenciaControl {
             return  new AsistenciaDAO(c).getAsistenciaSinEnviarSesionActiva();
     }
 
-    public static Asistencia getAsistenciaTrabajador(Context c,int idTrabajdor){
+    public static Asistencia getAsistenciaTrabajadorDia(Context c, int idTrabajdor){
         Asistencia asistencias = new AsistenciaDAO(c).getAsistenciaTrabajadorDia(idTrabajdor);
         return asistencias;
     }

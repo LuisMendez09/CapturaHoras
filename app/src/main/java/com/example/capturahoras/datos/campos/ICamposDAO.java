@@ -16,4 +16,5 @@ public interface ICamposDAO extends CRUD<Campos> {
 
     void reiniciarTabla();
     Campos leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 }

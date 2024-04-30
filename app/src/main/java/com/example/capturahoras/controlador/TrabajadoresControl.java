@@ -8,7 +8,7 @@ import com.example.capturahoras.modelo.Trabajadores;
 
 public class TrabajadoresControl {
     public static void getTrabajadores(Context c){
-        new DatosTrabajadoresDAO(c).listarActivos();
+        //new DatosTrabajadoresDAO(c).listarActivos();
         return;
     }
 
@@ -17,6 +17,6 @@ public class TrabajadoresControl {
     }
 
     public static int getTotalTrabajadores(Context c){
-        return new DatosTrabajadoresDAO(c).listarActivos().size();
+        return new DatosTrabajadoresDAO(c).ContarRegistros();
     }
 }

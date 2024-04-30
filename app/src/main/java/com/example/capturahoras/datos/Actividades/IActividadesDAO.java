@@ -12,5 +12,6 @@ public interface IActividadesDAO extends CRUD<Actividades> {
 
     void reiniciarTabla();
     Actividades leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 
 }

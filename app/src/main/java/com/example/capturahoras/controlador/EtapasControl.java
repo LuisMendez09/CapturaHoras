@@ -26,6 +26,6 @@ public class EtapasControl {
     }
 
     public static int getTotalEtapas(Context c){
-        return new DatosEtapaDAO(c).listarActivos().size();
+        return new DatosEtapaDAO(c).ContarRegistros();
     }
 }

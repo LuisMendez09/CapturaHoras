@@ -48,6 +48,22 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
     }
 
     @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_TRABAJADORES + " WHERE "+STATUS+"=1" ;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Trabajadores "+total);
+        return total;
+    }
+
+    @Override
     public Trabajadores leerPorId(int id) {
         Trabajadores trabajador = null;
 
