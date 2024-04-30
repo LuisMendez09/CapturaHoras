@@ -11,4 +11,5 @@ public interface IEtapasDAO extends CRUD<Etapas> {
 
     void reiniciarTabla();
     Etapas leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 }

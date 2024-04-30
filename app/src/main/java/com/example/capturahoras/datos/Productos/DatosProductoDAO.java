@@ -43,8 +43,24 @@ public class DatosProductoDAO implements IProductosDAO{
 
         cursor.close();
         data.close();
-        FileLog.v(Complementos.TAG_BDHANDLER,"Total Campo "+productos.size());
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Productos "+productos.size());
         return productos;
+    }
+
+    @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUCTOS;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Productos "+total);
+        return total;
     }
 
     @Override
@@ -67,7 +83,7 @@ public class DatosProductoDAO implements IProductosDAO{
         cursor.close();
         data.close();
         if(producto != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+producto.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"Producto "+producto.toString());
 
         return producto;
     }
@@ -84,7 +100,7 @@ public class DatosProductoDAO implements IProductosDAO{
         Long insert = data.insert(TABLE_PRODUCTOS, null, values);
 
         if(insert ==-1)
-            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Campo ");
+            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Producto ");
         db.close(); // Closing database connection
 
         return;
@@ -92,7 +108,7 @@ public class DatosProductoDAO implements IProductosDAO{
 
     @Override
     public void actualizar(Productos o) {
-        FileLog.v(Complementos.TAG_BDHANDLER,"ACTUALIZAR CAMPO "+o.toString());
+        FileLog.v(Complementos.TAG_BDHANDLER,"ACTUALIZAR Producto "+o.toString());
         int i = -1;
         try{
             SQLiteDatabase data = db.getWritableDatabase();
@@ -148,7 +164,7 @@ public class DatosProductoDAO implements IProductosDAO{
         cursor.close();
         data.close();
         if(producto != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Campo "+producto.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"Producto "+producto.toString());
 
         return producto;
     }

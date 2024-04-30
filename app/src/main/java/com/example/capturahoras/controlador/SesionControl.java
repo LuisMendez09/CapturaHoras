@@ -83,7 +83,7 @@ public class SesionControl {
     }
 
     public static boolean validarCatalogos(){
-
+        FileLog.e(Complementos.TAG_COFIG, "validar catalogos cargados");
         int trabajadores = TrabajadoresControl.getTotalTrabajadores(Settings.CONTEXT);
         int actividades = ActividadesControl.getTotalActividades(Settings.CONTEXT);
         int campos = CamposControl.getTotalCampos(Settings.CONTEXT);
@@ -185,7 +185,7 @@ public class SesionControl {
     }
 
     public static boolean finalizarSesion(){
-
+        FileLog.e(Complementos.TAG_COFIG, "finalizar setting "+Settings.valor());
         Settings.FIN_JORNADA = 1;
         boolean b = new SettingDAO(Settings.CONTEXT).updateJornada();
         if(!b)

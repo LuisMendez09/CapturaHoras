@@ -10,4 +10,5 @@ public interface ICceDAO extends CRUD<CCE> {
 
     void reiniciarTabla();
     CCE leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 }

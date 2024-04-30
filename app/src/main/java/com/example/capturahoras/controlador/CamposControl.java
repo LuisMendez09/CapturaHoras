@@ -27,6 +27,6 @@ public class CamposControl {
     }
 
     public static int getTotalCampos(Context c){
-        return new DatosCampoDAO(c).listarActivos().size();
+        return new DatosCampoDAO(c).ContarRegistros();
     }
 }

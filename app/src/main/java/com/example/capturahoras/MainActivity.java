@@ -13,6 +13,7 @@ import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.controlador.ImportarDatos;
 import com.example.capturahoras.controlador.SesionControl;
 import com.example.capturahoras.databinding.ActivityMainBinding;
+import com.example.capturahoras.modelo.Settings;
 import com.example.capturahoras.ui.dialogos.DialogCargarCatalogos;
 import com.example.capturahoras.ui.dialogos.DialogoProgreso;
 import com.example.capturahoras.ui.dialogos.Dialogs;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_fin_jornada:
+                FileLog.e(Complementos.TAG_MAIN, "preciono menu fin jornada "+ Settings.USUARIO);
                 if (SesionControl.validarSesion()) {
                     SesionControl.finalizarSesion();
                     dialogoInf("Session finalizada");
@@ -79,21 +81,19 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                 dialogoFinaliar();
                 break;
             case R.id.action_enviar:
-                //if (!SesionControl.validarSesion()) {
-                    new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.REGISTROS_SIN_ENVIAR,this);
-                //    break;
-                //}
+                FileLog.e(Complementos.TAG_MAIN, "preciono menu enviar ");
+                new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.REGISTROS_SIN_ENVIAR,this);
                 dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
                 break;
-            case R.id.action_actualizarCampos:
-                //if (!SesionControl.validarSesion()) {
+            /*case R.id.action_actualizarCampos:
+                FileLog.e(Complementos.TAG_MAIN, "preciono menu actualizar campos ");
                 new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.CAMPOS_UPDATE,this);
                 //    break;
                 //}
                 dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
-                break;
+                break;*/
             case R.id.action_importar:
-                    FileLog.i(Complementos.TAG_LOGIN, "actualizar catalogos");
+                    FileLog.i(Complementos.TAG_MAIN, "actualizar catalogos");
                     new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.TODOS,this);
                     break;
             default:

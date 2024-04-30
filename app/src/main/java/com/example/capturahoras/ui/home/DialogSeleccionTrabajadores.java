@@ -24,6 +24,7 @@ import com.example.capturahoras.complemento.Complementos;
 import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.controlador.AsistenciaControl;
 import com.example.capturahoras.datos.Trabajadores.DatosTrabajadoresDAO;
+import com.example.capturahoras.modelo.Asistencia;
 import com.example.capturahoras.modelo.Trabajadores;
 
 import java.util.List;
@@ -132,10 +133,13 @@ public class DialogSeleccionTrabajadores extends DialogFragment {
         if(itemPosition == null)
             return;
 
-        HomeFragmentDirections.ActionNavHomeToCapturaFragment a = HomeFragmentDirections.actionNavHomeToCapturaFragment();
-        a.setTrabajador(itemPosition);
-        a.setAsistenacia(AsistenciaControl.getAsistenciaTrabajador(this.getContext(),itemPosition.getNumero()));
-        Navigation.findNavController(getActivity(),R.id.fabManual).navigate(a);
+        HomeFragmentDirections.ActionNavHomeToCapturaFragment action = HomeFragmentDirections.actionNavHomeToCapturaFragment(itemPosition.getNumero());
+        Asistencia asistencia = AsistenciaControl.getAsistenciaTrabajadorDia(this.getContext(),itemPosition.getNumero());
+        if(asistencia!=null)
+            action.setIdAsistencia(asistencia.getId());
+        //a.setTrabajador(itemPosition);
+        //a.setAsistenacia(AsistenciaControl.getAsistenciaTrabajadorDia(this.getContext(),itemPosition.getNumero()));
+        Navigation.findNavController(getActivity(),R.id.fabManual).navigate(action);
 
         this.dismiss();
     }

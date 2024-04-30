@@ -27,6 +27,6 @@ public class ActividadesControl {
     }
 
     public static int getTotalActividades(Context c){
-        return new DatosActividadesDAO(c).listarActivos().size();
+        return new DatosActividadesDAO(c).ContarRegistros();
     }
 }

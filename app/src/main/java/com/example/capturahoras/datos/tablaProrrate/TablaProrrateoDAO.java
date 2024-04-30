@@ -48,6 +48,22 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
     }
 
     @Override
+    public int ContarRegistros() {
+
+        String selectQuery = "SELECT * FROM " + TABLE_TABLAPRORRATEO ;
+        int total=0;
+        SQLiteDatabase data = db.getWritableDatabase();
+        Cursor cursor = data.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        total = cursor.getCount();
+
+        cursor.close();
+        data.close();
+        FileLog.v(Complementos.TAG_BDHANDLER,"Total Tabla prorrateo "+total);
+        return total;
+    }
+
+    @Override
     public TablasProrrateo leerPorId(int id) {
         TablasProrrateo tp = null;
 
@@ -67,7 +83,7 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
         cursor.close();
         data.close();
         if(tp != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Trabajador "+tp.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"Tabla prorrateo "+tp.toString());
 
         return tp;
     }
@@ -92,7 +108,7 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
         cursor.close();
         data.close();
         if(tp != null)
-            FileLog.v(Complementos.TAG_BDHANDLER,"Trabajador "+tp.toString());
+            FileLog.v(Complementos.TAG_BDHANDLER,"Tabla prorrateo "+tp.toString());
 
         return tp;
     }
@@ -109,7 +125,7 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
         Long insert = data.insert(TABLE_TABLAPRORRATEO, null, values);
 
         if(insert ==-1)
-            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION TRABAJADOR ");
+            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Tabla prorrateo ");
         db.close(); // Closing database connection
 
         return;

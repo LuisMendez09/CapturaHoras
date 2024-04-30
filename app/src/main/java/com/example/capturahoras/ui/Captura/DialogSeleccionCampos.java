@@ -47,8 +47,10 @@ public class DialogSeleccionCampos extends DialogFragment {
 
         for (Campos cam : this.campos) {
             for (Campos select : camposSeleccionadas) {
-                if(cam.getClave()== select.getClave())
+                if(cam.getClave()== select.getClave()){
                     cam.setSelect(select.isSelect());
+                    continue;
+                }
             }
         }
     }

@@ -10,4 +10,5 @@ public interface ITablaProrrateoDAO extends CRUD<TablasProrrateo> {
 
     void reiniciarTabla();
     TablasProrrateo leerPorDescripcion(String descripcion);
+    int ContarRegistros();
 }

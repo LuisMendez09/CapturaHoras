@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 
+import com.example.capturahoras.complemento.Complementos;
 import com.example.capturahoras.complemento.Exceptions;
+import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.datos.DBHandler;
 import com.example.capturahoras.modelo.Settings;
 
@@ -52,6 +54,7 @@ public class SettingDAO implements ISettingDAO{
             }
             // return contact list
             cursor.close();
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+Settings.valor());
             return null;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
@@ -75,12 +78,15 @@ public class SettingDAO implements ISettingDAO{
             values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
 
             insert = (int) data.insert(TABLA_SETTINGS, null, values);
-            if(insert ==-1)
+            if(insert ==-1){
                 Exceptions.exception = new Exception("Error al guardar los datos");
+                FileLog.e(Complementos.TAG_SETTINGS, "setting Error al guardar los datos");
+            }
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
         }
-
+        FileLog.e(Complementos.TAG_SETTINGS, "setting "+Settings.valor());
         return;
     }
 
@@ -97,9 +103,12 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+settings.valor());
             return;
         }catch (Exception ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return;
         }
     }
@@ -127,15 +136,18 @@ public class SettingDAO implements ISettingDAO{
             }
             // return contact list
             cursor.close();
+            FileLog.e(Complementos.TAG_SETTINGS, "setting get usuario"+Settings.USUARIO);
             return Settings.USUARIO;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return null;
         }
     }
     @Override
     public boolean updateUsuario(){
         try{
+
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
@@ -143,9 +155,11 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update usuario"+Settings.USUARIO);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return false;
         }
     }
@@ -160,9 +174,11 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update MAIL"+Settings.MAILS);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return false;
         }
     }
@@ -177,9 +193,11 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update URL"+Settings.URL);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return false;
         }
     }
@@ -195,9 +213,11 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update fecha"+Settings.FECHA);
             return true;
         }catch (Exception ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return false;
         }
     }
@@ -212,9 +232,11 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update JORNADA"+Settings.USUARIO);
             return true;
         }catch (Exception ex){
             Exceptions.exception = ex;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
             return false;
         }
     }

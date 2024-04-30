@@ -27,6 +27,6 @@ public class CceControl {
     }
 
     public static int getTotalCce(Context c){
-        return new DatosCceDAO(c).listarActivos().size();
+        return new DatosCceDAO(c).ContarRegistros();
     }
 }

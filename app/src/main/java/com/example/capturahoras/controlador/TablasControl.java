@@ -26,6 +26,6 @@ public class TablasControl {
     }
 
     public static int getTotalTablas(Context c){
-        return new TablaProrrateoDAO(c).listarActivos().size();
+        return new TablaProrrateoDAO(c).ContarRegistros();
     }
 }

@@ -11,4 +11,5 @@ public interface ITrabajadoresDAO extends CRUD<Trabajadores> {
     String STATUS="Status";
 
     void reiniciarTabla();
+    int ContarRegistros();
 }

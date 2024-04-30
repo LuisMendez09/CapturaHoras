@@ -26,6 +26,6 @@ public class ProductosControl {
     }
 
     public static int getTotalProductos(Context c){
-        return new DatosProductoDAO(c).listarActivos().size();
+        return new DatosProductoDAO(c).ContarRegistros();
     }
 }
