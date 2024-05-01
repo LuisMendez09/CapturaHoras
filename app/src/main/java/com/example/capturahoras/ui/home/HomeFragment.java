@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
             }else{
                 DialogoInf("SESION FINALIZADA");
             }
-            return false;
+            return true;
         });
 
         lv_asistenacia.setOnItemClickListener((adapterView, view, i, l) -> {

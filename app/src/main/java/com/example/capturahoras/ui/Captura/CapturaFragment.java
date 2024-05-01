@@ -293,10 +293,10 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
             }
 
 
-            if(ct.getHoras() == 0){
+            /*if(ct.getHoras() == 0){
                 DialogoInf("ERROR!!, Favor ingresar horas para la actividad "+ct.getActividades().getDescripcion());
                 return false;
-            }
+            }*/
         }
 
         return true;
@@ -394,20 +394,25 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
     }
 
     @Override
+    public void onItemsSelectCampo(Campos campo) {
+
+    }
+
+    @Override
     public void onItemsSelectCamposTrabajados(HashMap<String, CamposTrabajados> hct) {
         Set<String> key = hct.keySet();
         List<CamposTrabajados> values = new ArrayList<>();
-        et_horas.setText("");
+        //et_horas.setText("");
         for (String a : key) {
             CamposTrabajados ct = hct.get(a);
             values.add(ct);
 
-            float v =0;
-            if(!et_horas.getText().toString().equals(""))
-                v = Float.parseFloat(et_horas.getText().toString());
+            //float v =0;
+            //if(!et_horas.getText().toString().equals(""))
+            //    v = Float.parseFloat(et_horas.getText().toString());
 
-             v = v + ct.getHoras();
-            et_horas.setText(v+"");
+             //v = v + ct.getHoras();
+            //et_horas.setText(v+"");
         }
 
         CamposTrabajadosAdapter cta = new CamposTrabajadosAdapter(getContext(),values);

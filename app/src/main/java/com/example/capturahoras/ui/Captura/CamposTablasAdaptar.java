@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,11 +90,21 @@ public class CamposTablasAdaptar extends ArrayAdapter<CamposTrabajados> implemen
             public void onClick(View view) {
                 index = position;
 
-                DialogSeleccionCampos dialogSeleccionCampos = new DialogSeleccionCampos();
-                dialogSeleccionCampos.setOnItemSelectListener(CamposTablasAdaptar.this);
-                dialogSeleccionCampos.setCamposSeleccionadas(ct.getCampo());
+                //DialogSeleccionMultiplesCampos dialogSeleccionMultiplesCampos = new DialogSeleccionMultiplesCampos();
+                //dialogSeleccionMultiplesCampos.setOnItemSelectListener(CamposTablasAdaptar.this);
+                //dialogSeleccionMultiplesCampos.setCamposSeleccionadas(ct.getCampo());
+                //dialogSeleccionMultiplesCampos.show(CamposTablasAdaptar.this.fragmentManager,"campo");
 
-                dialogSeleccionCampos.show(CamposTablasAdaptar.this.fragmentManager,"campo");
+                DialogSeleccionCampo dsc = new DialogSeleccionCampo();
+                dsc.setOnItemSelectListener(CamposTablasAdaptar.this);
+                if(ct.getCampo() == null)
+                    dsc.setTablaSeleccionadas(null);
+                else if(ct.getCampo().size() == 0)
+                    dsc.setTablaSeleccionadas(null);
+                else
+                    dsc.setTablaSeleccionadas(ct.getCampo().get(0));
+
+                dsc.show(CamposTablasAdaptar.this.fragmentManager,"Campos seleccion");
             }
         });
 
@@ -163,6 +172,15 @@ public class CamposTablasAdaptar extends ArrayAdapter<CamposTrabajados> implemen
         camposTrabajados.get(index).setCampos(new ArrayList<>());
         camposTrabajados.get(index).setTablaProrrateo(tablasProrrateo);
         iniciarCampos(null,tablasProrrateo);
+    }
+
+    @Override
+    public void onItemsSelectCampo(Campos campo) {
+        List<Campos> cam = new ArrayList<>();
+        cam.add(campo);
+        camposTrabajados.get(index).setCampos(cam);
+        camposTrabajados.get(index).setTablaProrrateo(null);
+        iniciarCampos(cam,null);
     }
 
     @Override

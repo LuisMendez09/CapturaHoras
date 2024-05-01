@@ -25,11 +25,11 @@ public class CamposAdapter extends RecyclerView.Adapter<CamposAdapter.ViewHolder
     private List<Campos> listaFiltrada;
 
     private CamposAdapter.CustomFilter mFilter;
-    private CamposAdapter.OnItemClickListener listener;
+    //private CamposAdapter.OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
-    }
+    //public interface OnItemClickListener {
+    //    void onItemClick(View itemView, int position);
+    //}
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private CheckBox campo;
@@ -39,14 +39,14 @@ public class CamposAdapter extends RecyclerView.Adapter<CamposAdapter.ViewHolder
 
             campo = viewItem.findViewById(R.id.cb_campos_checkbox);
 
-            itemView.setOnClickListener(view -> {
+            /*itemView.setOnClickListener(view -> {
                 if(listener!=null){
                     int position = getAdapterPosition();
                     if(position!= RecyclerView.NO_POSITION){
                         listener.onItemClick(view,position);
                     }
                 }
-            });
+            });*/
 
             campo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

@@ -62,8 +62,8 @@ public class AsistenciaControl {
         camposTrabajadosDAO.eliminar(asistencia.getId());
         HashMap<String, CamposTrabajados> ct = asistencia.getCamposTrabajados();
         for (String act : ct.keySet()) {
-            if(ct.get(act).getAsistencia() == null)
-                ct.get(act).setAsistencia(asistencia);
+            //if(ct.get(act).getAsistencia() == null)
+            ct.get(act).setAsistencia(asistencia);
             camposTrabajadosDAO.guardar(ct.get(act));
         }
     }

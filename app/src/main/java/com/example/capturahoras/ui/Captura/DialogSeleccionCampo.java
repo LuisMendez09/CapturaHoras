@@ -9,14 +9,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capturahoras.R;
 import com.example.capturahoras.controlador.CamposControl;
@@ -25,59 +25,54 @@ import com.example.capturahoras.modelo.Campos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogSeleccionCampos extends DialogFragment {
-    private RecyclerView lv_Actividades;
+public class DialogSeleccionCampo  extends DialogFragment {
+    private RadioGroup grupoRadios;
     private TextView tv_filtroA;
-    private List<Campos> campos = new ArrayList<>();
+    private List<Campos> campos =new ArrayList<>();//todas las opciones
+    private Campos campoSeleccionada;
 
-    private CamposAdapter camposAdapter;
     private OnItemSelectListener listener;
 
     public void setOnItemSelectListener(OnItemSelectListener listener){
         this.listener = listener;
     }
 
-    public void setCamposSeleccionadas(List<Campos> camposSeleccionadas){
+    public void setTablaSeleccionadas(Campos campoSeleccionado){
         List<Campos> c = CamposControl.getCampos(this.getContext());
         this.campos = c;
 
-        if(camposSeleccionadas == null){
+        if(campoSeleccionado == null){
             return;
         }
 
-        for (Campos cam : this.campos) {
-            for (Campos select : camposSeleccionadas) {
-                if(cam.getClave()== select.getClave()){
-                    cam.setSelect(select.isSelect());
-                    continue;
-                }
-            }
-        }
+        this.campoSeleccionada = campoSeleccionado;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View root = inflater.inflate(R.layout.dialog_seleccion_campos, null);
+        View root = inflater.inflate(R.layout.dialog_seleccion_radiobutton, null);
 
-        lv_Actividades=root.findViewById(R.id.lv_campos);
+        grupoRadios = root.findViewById(R.id.groupRadio);
         tv_filtroA = root.findViewById(R.id.et_filtro);
+
+        agregarRadioButtom("");
 
         builder.setTitle(R.string.msn_titulo_Selec_campos)
                 .setView(root)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        campos = camposAdapter.getCamposSelecc();
                         if(listener!=null){
+                            listener.onItemsSelectCampo(campoSeleccionada);
                             dismiss();
-                            listener.onItemsSelectCampo(campos);
                         }
                         dismiss();
                     }
@@ -93,8 +88,7 @@ public class DialogSeleccionCampos extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(camposAdapter !=null)
-                    camposAdapter.getFilter().filter(charSequence);
+                agregarRadioButtom(tv_filtroA.getText().toString());
             }
 
             @Override
@@ -103,29 +97,47 @@ public class DialogSeleccionCampos extends DialogFragment {
             }
         });
 
-        InicializarLista();
-
         AlertDialog alertDialog = builder.create();
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
         return alertDialog;
     }
 
-    private void InicializarLista(){
-        if(campos.size()==0)
-            campos = CamposControl.getCampos(this.getContext());
+    private void agregarRadioButtom(String filtro){
 
-        camposAdapter = new CamposAdapter(campos);
-        lv_Actividades.setAdapter(camposAdapter);
+        grupoRadios.clearCheck();
+        grupoRadios.removeAllViews();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        lv_Actividades.setLayoutManager(layoutManager);
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        lv_Actividades.addItemDecoration(itemDecoration);
+        for (Campos tp : campos) {
+            if(filtro.equals("") || tp.getDescripcion().toLowerCase().contains(filtro.toLowerCase())){
+                RadioButton button = new RadioButton(this.getContext());
+                button.setText(tp.getDescripcion());
 
-    }
+                button.setChecked(false);
 
-    public List<Campos> getCampos(){
-        return campos;
+                button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                        if(!b)
+                            return;
+
+                        for (Campos tp :campos) {
+                            if (tp.getDescripcion().equals(compoundButton.getText().toString())){
+                                campoSeleccionada = tp;
+                            }
+                        }
+                    }
+                });
+                grupoRadios.addView(button);
+
+            }
+        }
+
+        for (int i = 0; i < grupoRadios.getChildCount(); i++) {
+            String title = ((RadioButton)grupoRadios.getChildAt(i)).getText().toString();
+            if(campoSeleccionada != null && title.equals(campoSeleccionada.getDescripcion()))
+                ((RadioButton) grupoRadios.getChildAt(i)).setChecked(true);
+        }
     }
 }

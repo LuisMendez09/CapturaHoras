@@ -28,7 +28,7 @@ import java.util.List;
 public class dialogSeleccionTablas extends DialogFragment {
     private RadioGroup grupoRadios;
     private TextView tv_filtroA;
-    private List<TablasProrrateo> tablas =new ArrayList<>();//todas las opciones}
+    private List<TablasProrrateo> tablas =new ArrayList<>();//todas las opciones
     private TablasProrrateo tablaSeleccionada;
 
     private OnItemSelectListener listener;

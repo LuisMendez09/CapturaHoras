@@ -61,7 +61,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                 values.put(CCE,c.getCceSeleccionada().getClave());
                 values.put(ETAPA,c.getEtapaSeleccionada().getClave());
                 values.put(ENVIADO,0);
-                values.put(HORAS,o.getHoras());
+                values.put(HORAS,o.getAsistencia().getTotalHoras());
 
                 insert = data.insert(TABLE_CAMPOSTRABAJADOS, null, values);//guardar mallas
                 new DatosCampoDAO(context).actualizar(c);
@@ -76,7 +76,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
             values.put(ID_ACTIVIDAD,o.getActividades().getClave());
             values.put(ID_ASISTENCIA,o.getAsistencia().getId());
             values.put(ENVIADO,0);
-            values.put(HORAS,o.getHoras());
+            values.put(HORAS,o.getAsistencia().getTotalHoras());
 
             insert = data.insert(TABLE_CAMPOSTRABAJADOS, null, values);// guardar tabla
         }
@@ -109,7 +109,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                     values.put(CCE,c.getCceSeleccionada().getClave());
                     values.put(ETAPA,c.getEtapaSeleccionada().getClave());
                     values.put(ENVIADO,o.getEnviado());
-                    values.put(HORAS,o.getHoras());
+                    values.put(HORAS,o.getAsistencia().getTotalHoras());
 
                     i = data.update(TABLE_CAMPOSTRABAJADOS, values, ID + " = ?",new String[]{String.valueOf(c.getId_canposTrabajados())});//guardar mallas
                     //new DatosCampoDAO(context).actualizar(c);
@@ -123,7 +123,7 @@ public class CamposTrabajadosDAO implements ICamposTrabajadosDAO {
                 values.put(ID_ACTIVIDAD,o.getActividades().getClave());
                 values.put(ID_ASISTENCIA,o.getAsistencia().getId());
                 values.put(ENVIADO,o.getEnviado());
-                values.put(HORAS,o.getHoras());
+                values.put(HORAS,o.getAsistencia().getTotalHoras());
 
                 i = data.update(TABLE_CAMPOSTRABAJADOS, values, ID + " = ?",
                         new String[]{String.valueOf(o.getId())});// guardar tabla

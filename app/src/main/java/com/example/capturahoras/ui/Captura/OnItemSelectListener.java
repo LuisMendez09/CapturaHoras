@@ -14,5 +14,6 @@ public interface OnItemSelectListener {
     void onItemsSelectActividad(List<Actividades> actividades);
     void onItemsSelectCampo(List<Campos> campos);
     void onItemsSelectTabla(TablasProrrateo tablasProrrateo);
+    void onItemsSelectCampo(Campos campo);
     void onItemsSelectCamposTrabajados(HashMap<String, CamposTrabajados> hct);
 }
