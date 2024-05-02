@@ -2,6 +2,8 @@ package com.example.capturahoras.ui.home;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -82,6 +85,16 @@ public class DialogSeleccionTrabajadores extends DialogFragment {
         inicializarRecyclerView();
         AlertDialog alertDialog = builder.create();
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                Button negativeButton = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                negativeButton.setTextColor(Color.rgb(235,50,55));
+
+                negativeButton.invalidate();
+            }
+        });
         alertDialog.show();
         return alertDialog;
     }

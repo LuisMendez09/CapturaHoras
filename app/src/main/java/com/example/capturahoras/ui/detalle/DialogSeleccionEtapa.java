@@ -3,12 +3,14 @@ package com.example.capturahoras.ui.detalle;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -101,6 +103,20 @@ public class DialogSeleccionEtapa extends DialogFragment {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.segundo);
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                Button negativeButton = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                Button positiveButton = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+
+                negativeButton.setTextColor(Color.rgb(235,50,55));
+                positiveButton.setTextColor(Color.rgb(255,255,255));
+
+                negativeButton.invalidate();
+                positiveButton.invalidate();
+            }
+        });
         alertDialog.show();
         return alertDialog;
     }

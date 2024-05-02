@@ -126,6 +126,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".4"
                 android:layout_margin="5dp"
+                android:backgroundTint="@color/segundo"
+                android:textColor="@color/white"
                 android:text="Actividades" />
 
             <Button
@@ -134,7 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight=".3"
-                android:text="GUARDAR" />
+                android:backgroundTint="@color/segundo"
+                android:textColor="@color/white"
+                android:text="CONTINUAR" />
 
             <Button
                 android:id="@+id/bt_cancelar"
@@ -142,6 +146,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight=".3"
+                android:backgroundTint="@color/cancelar"
+                android:textColor="@color/white"
                 android:text="CANCELAR" />
 
         </LinearLayout>

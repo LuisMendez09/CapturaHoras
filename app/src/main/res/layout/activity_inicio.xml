@@ -70,6 +70,8 @@
                 android:layout_height="57dp"
                 android:layout_marginTop="36dp"
                 android:text="Iniciar"
+                android:backgroundTint="@color/segundo"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/et_usuario"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/et_usuario"
@@ -82,7 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/et_usuario"
                 app:layout_constraintEnd_toStartOf="@+id/et_usuario"
                 app:layout_constraintTop_toTopOf="@+id/et_usuario"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/ic_baseline_person_24" />
 
 
 

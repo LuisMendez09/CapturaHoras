@@ -90,11 +90,13 @@ public class CamposTablasAdaptar extends ArrayAdapter<CamposTrabajados> implemen
             public void onClick(View view) {
                 index = position;
 
+        //dialogo de multiples seleccion de campos
                 //DialogSeleccionMultiplesCampos dialogSeleccionMultiplesCampos = new DialogSeleccionMultiplesCampos();
                 //dialogSeleccionMultiplesCampos.setOnItemSelectListener(CamposTablasAdaptar.this);
                 //dialogSeleccionMultiplesCampos.setCamposSeleccionadas(ct.getCampo());
                 //dialogSeleccionMultiplesCampos.show(CamposTablasAdaptar.this.fragmentManager,"campo");
 
+        //dialog de seleccion un solo campo
                 DialogSeleccionCampo dsc = new DialogSeleccionCampo();
                 dsc.setOnItemSelectListener(CamposTablasAdaptar.this);
                 if(ct.getCampo() == null)

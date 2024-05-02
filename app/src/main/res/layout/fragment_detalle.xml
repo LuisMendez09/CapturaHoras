@@ -14,6 +14,8 @@
             android:id="@+id/btn_guardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/segundo"
+            android:textColor="@color/white"
             android:layout_weight="1"
             android:text="Guardar" />
 

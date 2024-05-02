@@ -35,7 +35,7 @@ public class DialogActividad extends DialogFragment {
         textView = root.findViewById(R.id.et_filtroA);
         actividades = ActividadesControl.getActividadesArray(this.getContext());
 
-        builder.setTitle(R.string.msn_titulo_Selec_trabajador)
+        builder.setTitle(R.string.msn_titulo_Selec_actividad)
                 .setCustomTitle(root)
                 .setMultiChoiceItems(actividades,null,(dialogInterface, i, b) -> {})
                 .setNegativeButton(R.string.btn_cancelar, (dialogInterface, i) -> dismiss());

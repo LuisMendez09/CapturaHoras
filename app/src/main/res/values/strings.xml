@@ -31,10 +31,12 @@
     <string name="msn_titulo_CapturaUrl">Servidor</string>
     <string name="msn_titulo_CapturaMail">Ingrese correos</string>
     <string name="msn_titulo_Selec_trabajador">Seleccion de trabajador</string>
-    <string name="msn_titulo_Selec_campos">Seleccion de campos</string>
-    <string name="msn_titulo_Selec_etapa">Seleccion de etapas</string>
-    <string name="msn_titulo_Selec_cce">Seleccion de CCE</string>
-    <string name="msn_titulo_Selec_producto">Seleccion de producto</string>
+    <string name="msn_titulo_Selec_actividad">Actividades</string>
+    <string name="msn_titulo_Selec_campos">Campos</string>
+    <string name="msn_titulo_Selec_tablas">Tablas de prorrateo</string>
+    <string name="msn_titulo_Selec_etapa">Etapas</string>
+    <string name="msn_titulo_Selec_cce">CCE</string>
+    <string name="msn_titulo_Selec_producto">Productos</string>
     <string name="msn_titulo_Enviar">Enviar correo</string>
     <string name="msn_titulo_actualziarCatalogos">Actualziacion de catalogos</string>
     <string name="msn_titulo_descargaCatalog">Descarga de catalogos</string>
