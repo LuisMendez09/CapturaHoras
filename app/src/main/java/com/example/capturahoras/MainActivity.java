@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.capturahoras.complemento.Complementos;
 import com.example.capturahoras.complemento.Exceptions;
@@ -43,9 +45,11 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         FileLog.e(Complementos.TAG_SETTINGS, "inicia Main");
+
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -55,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.subtitulo);
+        navUsername.setText(Settings.USUARIO);
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);

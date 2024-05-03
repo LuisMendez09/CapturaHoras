@@ -34,8 +34,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
+                android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                app:srcCompat="@drawable/ic_menu_camera" />
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_baseline_close_24" />
         </LinearLayout>
 
         <LinearLayout

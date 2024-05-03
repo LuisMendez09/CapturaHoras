@@ -27,7 +27,7 @@
         android:layout_gravity="bottom|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_baseline_person_search_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -36,6 +36,6 @@
         android:layout_gravity="bottom|end"
         app:layout_constraintBottom_toTopOf="@+id/fabManual"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_baseline_qr_code_scanner_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

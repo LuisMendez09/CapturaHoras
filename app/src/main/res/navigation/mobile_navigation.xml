@@ -29,8 +29,8 @@
     <fragment
         android:id="@+id/capturaFragment"
         android:name="com.example.capturahoras.ui.Captura.CapturaFragment"
-        android:label="fragment_captura"
-        tools:layout="@layout/fragment_captura" >
+        android:label="@string/menu_captura"
+        tools:layout="@layout/fragment_captura">
         <action
             android:id="@+id/action_capturaFragment_to_detalleFragment2"
             app:destination="@id/detalleFragment" />
@@ -42,14 +42,14 @@
             app:argType="integer" />
         <argument
             android:name="id_asistencia"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/detalleFragment"
         android:name="com.example.capturahoras.ui.detalle.DetalleFragment"
-        android:label="fragment_detalle"
-        tools:layout="@layout/fragment_detalle" >
+        android:label="@string/menu_detalle"
+        tools:layout="@layout/fragment_detalle">
         <action
             android:id="@+id/action_detalleFragment_to_nav_home3"
             app:destination="@id/nav_home" />
@@ -58,7 +58,7 @@
             app:argType="com.example.capturahoras.modelo.Asistencia" />
         <argument
             android:name="edicion"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 </navigation>

@@ -2,7 +2,7 @@
     <string name="app_name">CapturaHoras</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Rancho Hermanos Magaña</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_fin_jornada">Finalizar Jornada</string>
@@ -10,7 +10,9 @@
     <string name="action_actualizarCampos">Actualziar Campos</string>
     <string name="action_importar">Importar catalogos</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Asistencias del dia</string>
+    <string name="menu_captura">Asistencia</string>
+    <string name="menu_detalle">Detalle del campo</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
