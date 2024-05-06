@@ -1,8 +1,6 @@
 package com.example.capturahoras;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,17 +80,19 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
             case R.id.action_fin_jornada:
                 FileLog.e(Complementos.TAG_MAIN, "preciono menu fin jornada "+ Settings.USUARIO);
                 if (SesionControl.validarSesion()) {
-                    SesionControl.finalizarSesion();
-                    dialogoInf("Session finalizada");
+                    //SesionControl.finalizarSesion();
+                    //dialogoInf("Session finalizada");
+                    dialogoFinaliar();
                     break;
                 }
 
-                dialogoFinaliar();
+                dialogoInf("Session finalizada");
                 break;
             case R.id.action_enviar:
                 FileLog.e(Complementos.TAG_MAIN, "preciono menu enviar ");
                 new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.REGISTROS_SIN_ENVIAR,this);
-                dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
+
+                //dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
                 break;
             /*case R.id.action_actualizarCampos:
                 FileLog.e(Complementos.TAG_MAIN, "preciono menu actualizar campos ");
@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                         dialogInterface.dismiss();
                     }
                 });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void dialogoFinaliar() {
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SesionControl.finalizarSesion();
                         dialogInterface.dismiss();
+                        dialogoInf("Session finalizada");
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -151,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                     }
                 });
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
