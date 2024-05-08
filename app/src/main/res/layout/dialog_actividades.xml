@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/segundo"
+        android:background="@color/white"
         android:layout_height="50dp">
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.1"
-            app:srcCompat="@drawable/ic_menu_gallery" />
+            app:srcCompat="@drawable/ic_baseline_search_24" />
 
         <EditText
             android:id="@+id/et_filtroA"
@@ -36,7 +36,6 @@
             android:gravity="center_vertical"
             android:text=""
             android:textSize="16dp"
-            android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

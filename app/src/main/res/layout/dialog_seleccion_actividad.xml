@@ -19,7 +19,6 @@
             android:gravity="center_vertical"
             android:visibility="gone"
             android:text="Actividad"
-            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <ImageView
@@ -37,7 +36,6 @@
             android:gravity="center_vertical"
             android:text=""
             android:textSize="16dp"
-            android:textColor="@color/white"
             android:textStyle="bold" />
 
     </LinearLayout>
