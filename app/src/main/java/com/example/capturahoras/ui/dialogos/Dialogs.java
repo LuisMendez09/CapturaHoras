@@ -55,6 +55,19 @@ public class Dialogs {
         dialog.show();
     }
 
-
+    public static void dialogoInf(String mensaje) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(Settings.CONTEXT);
+// 2. Chain together various setter methods to set the dialog characteristics.
+        builder.setMessage(mensaje)
+                .setTitle("Captura de asistencia")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 }

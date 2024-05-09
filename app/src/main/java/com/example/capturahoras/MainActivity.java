@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
     @Override
     public void finilazacion(String error) {
         if(error.length()==0){
+            dialogoInf("Proceso finalizado");
             return;
         }else{
             Dialogs.DialogError(error);
