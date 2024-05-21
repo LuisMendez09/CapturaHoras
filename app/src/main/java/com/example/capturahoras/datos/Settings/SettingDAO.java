@@ -33,7 +33,7 @@ public class SettingDAO implements ISettingDAO{
     @Override
     public Settings leerPorId(int id) {
         String selectQuery = "SELECT * FROM " + TABLA_SETTINGS + " WHERE " + SETTINGS_ID + " = " + 1 + " ";
-
+        Settings settings=Settings.getInstanacia();
         try {
             SQLiteDatabase data = db.getWritableDatabase();
             Cursor cursor = data.rawQuery(selectQuery, null);
@@ -41,21 +41,20 @@ public class SettingDAO implements ISettingDAO{
             int rows = cursor.getCount();
 
             if (cursor.moveToFirst()) {
-
                 do {
-                    Settings.FECHA = cursor.getString(1);
-                    Settings.DATE = new Date(cursor.getLong(2));
-                    Settings.URL = cursor.getString(3);
-                    Settings.MAILS = cursor.getString(4);
-                    Settings.USUARIO = cursor.getString(5);
-                    Settings.FIN_JORNADA = cursor.getInt(6);
+                    settings.setFECHA(cursor.getString(1));
+                    settings.setDATE(new Date(cursor.getLong(2)));
+                    settings.setURL(cursor.getString(3));
+                    settings.setMAILS(cursor.getString(4));
+                    settings.setUSUARIO(cursor.getString(5));
+                    settings.setFIN_JORNADA(cursor.getInt(6));
 
                 } while (cursor.moveToNext());
             }
             // return contact list
             cursor.close();
-            FileLog.e(Complementos.TAG_SETTINGS, "setting "+Settings.valor());
-            return null;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting "+settings.valor());
+            return settings;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
             return null;
@@ -65,17 +64,16 @@ public class SettingDAO implements ISettingDAO{
     @Override
     public void guardar(Settings settings) {
         int insert;
-
         try{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
             values.put(SETTINGS_ID,1);
-            values.put(SETTINGS_DATE,Settings.DATE.getTime());
-            values.put(SETTINGS_FECHA,Settings.FECHA);
-            values.put(SETTINGS_URL,Settings.URL);
-            values.put(SETTINGS_MAILS,Settings.MAILS);
-            values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
+            values.put(SETTINGS_DATE,settings.getDATE().getTime());
+            values.put(SETTINGS_FECHA,settings.getFECHA());
+            values.put(SETTINGS_URL,settings.getURL());
+            values.put(SETTINGS_MAILS,settings.getMAILS());
+            values.put(SETTINGS_JORNADA_FINALIZADA,settings.getFIN_JORNADA());
 
             insert = (int) data.insert(TABLA_SETTINGS, null, values);
             if(insert ==-1){
@@ -86,7 +84,7 @@ public class SettingDAO implements ISettingDAO{
             Exceptions.exception = ex;
             FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
         }
-        FileLog.e(Complementos.TAG_SETTINGS, "setting "+Settings.valor());
+        FileLog.e(Complementos.TAG_SETTINGS, "setting "+settings.valor());
         return;
     }
 
@@ -96,9 +94,9 @@ public class SettingDAO implements ISettingDAO{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_DATE,Settings.DATE.getTime());
-            values.put(SETTINGS_FECHA,Settings.FECHA);
-            values.put(SETTINGS_USUARIO,Settings.USUARIO);
+            values.put(SETTINGS_DATE,settings.getDATE().getTime());
+            values.put(SETTINGS_FECHA,settings.getFECHA());
+            values.put(SETTINGS_USUARIO,settings.getURL());
             //values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
 
             String[] args = new String []{ "1"};
@@ -121,7 +119,7 @@ public class SettingDAO implements ISettingDAO{
     @Override
     public String getUsuario() {
         String selectQuery = "SELECT "+SETTINGS_USUARIO+" FROM " + TABLA_SETTINGS + " WHERE " + SETTINGS_ID + " = " + 1 + " ";
-
+        Settings settings = Settings.getInstanacia();
         try {
             SQLiteDatabase data = db.getWritableDatabase();
             Cursor cursor = data.rawQuery(selectQuery, null);
@@ -130,14 +128,14 @@ public class SettingDAO implements ISettingDAO{
 
             if (cursor.moveToFirst()) {
                 do {
-                    Settings.USUARIO = cursor.getString(0);
+                    settings.setUSUARIO( cursor.getString(0));
 
                 } while (cursor.moveToNext());
             }
             // return contact list
             cursor.close();
-            FileLog.e(Complementos.TAG_SETTINGS, "setting get usuario"+Settings.USUARIO);
-            return Settings.USUARIO;
+            FileLog.e(Complementos.TAG_SETTINGS, "setting get usuario "+settings.getUSUARIO());
+            return settings.getUSUARIO();
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
             FileLog.e(Complementos.TAG_SETTINGS, "setting "+ex.getMessage());
@@ -145,17 +143,17 @@ public class SettingDAO implements ISettingDAO{
         }
     }
     @Override
-    public boolean updateUsuario(){
+    public boolean updateUsuario(String usuario){
         try{
 
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_USUARIO,Settings.USUARIO);
+            values.put(SETTINGS_USUARIO,usuario);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update usuario"+Settings.USUARIO);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update usuario "+usuario);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
@@ -165,16 +163,16 @@ public class SettingDAO implements ISettingDAO{
     }
 
     @Override
-    public boolean updateMail(){
+    public boolean updateMail(String mail){
         try{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_MAILS,Settings.MAILS);
+            values.put(SETTINGS_MAILS,mail);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update MAIL"+Settings.MAILS);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update MAIL "+mail);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
@@ -184,16 +182,16 @@ public class SettingDAO implements ISettingDAO{
     }
 
     @Override
-    public boolean updateUrl(){
+    public boolean updateUrl(String url){
         try{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_URL,Settings.URL);
+            values.put(SETTINGS_URL,url);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update URL"+Settings.URL);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update URL "+url);
             return true;
         }catch (SQLiteException ex){
             Exceptions.exception = ex;
@@ -203,17 +201,17 @@ public class SettingDAO implements ISettingDAO{
     }
 
     @Override
-    public boolean updateFecha(){
+    public boolean updateFecha(Date date,String fecha){
         try{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_DATE,Settings.DATE.getTime());
-            values.put(SETTINGS_FECHA,Settings.FECHA);
+            values.put(SETTINGS_DATE,date.getTime());
+            values.put(SETTINGS_FECHA,fecha);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update fecha"+Settings.FECHA);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update fecha "+fecha+ " -- "+date.getTime());
             return true;
         }catch (Exception ex){
             Exceptions.exception = ex;
@@ -223,16 +221,16 @@ public class SettingDAO implements ISettingDAO{
     }
 
     @Override
-    public boolean updateJornada() {
+    public boolean updateJornada(int finJornada) {
         try{
             SQLiteDatabase data = db.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
+            values.put(SETTINGS_JORNADA_FINALIZADA,finJornada);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update JORNADA"+Settings.FIN_JORNADA);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update JORNADA "+finJornada);
             return true;
         }catch (Exception ex){
             Exceptions.exception = ex;

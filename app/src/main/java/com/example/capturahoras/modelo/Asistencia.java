@@ -103,4 +103,19 @@ public class Asistencia implements Serializable {
     public void setEnviado(int enviado) {
         this.enviado = enviado;
     }
+
+    @Override
+    public String toString() {
+        return "Asistencia{" +
+                "id=" + id +
+                ", fecha=" + fecha +
+                ", trabajadores=" + trabajadores +
+                ", totalHoras=" + totalHoras +
+                ", dispositivo='" + dispositivo + '\'' +
+                ", horaInicial=" + horaInicial +
+                ", horaFinal=" + horaFinal +
+                ", enviado=" + enviado +
+                ", camposTrabajados=" + camposTrabajados +
+                '}';
+    }
 }

@@ -4,6 +4,8 @@ package com.example.capturahoras.datos.Settings;
 import com.example.capturahoras.datos.CRUD;
 import com.example.capturahoras.modelo.Settings;
 
+import java.util.Date;
+
 public interface ISettingDAO extends CRUD<Settings> {
     String TABLA_SETTINGS = "Settings";
 
@@ -16,10 +18,10 @@ public interface ISettingDAO extends CRUD<Settings> {
     String SETTINGS_JORNADA_FINALIZADA="finJornada";
 
     String getUsuario();
-    boolean updateUsuario();
-    boolean updateMail();
-    boolean updateUrl();
-    boolean updateFecha();
-    boolean updateJornada();
+    boolean updateUsuario(String usuario);
+    boolean updateMail(String mail);
+    boolean updateUrl(String url);
+    boolean updateFecha(Date date,String fecha);
+    boolean updateJornada(int jornada);
 
 }

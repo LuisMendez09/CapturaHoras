@@ -32,7 +32,7 @@ public class DialogUrl extends DialogFragment {
         ((Button)view.findViewById(R.id.btn_guardar_settings)).setOnClickListener(view1 -> guardar());
 
         url = view.findViewById(R.id. et_url);
-        url.setText(Settings.URL);
+        url.setText(Settings.getInstanacia().getURL());
         return view;
     }
 

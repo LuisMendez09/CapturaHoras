@@ -24,6 +24,7 @@ public class Complementos {
     public static final String TAG_LOGIN ="Login";
     public static final String TAG_COFIG = "Configuracion";
     public static final String TAG_SETTINGS = "setting";
+    public static final String TAG_ASISTENCIA = "asistencia";
     public static final String TAG_HOME = "Home";
     public static final String TAG_CAPTURA = "captura";
 

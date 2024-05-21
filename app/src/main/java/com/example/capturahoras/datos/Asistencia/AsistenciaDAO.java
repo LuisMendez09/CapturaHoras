@@ -271,7 +271,7 @@ public class AsistenciaDAO implements IAsistenciaDAO{
         ArrayList<Asistencia> asistencias = new ArrayList<Asistencia>();
         Asistencia asistencia = null;
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_ASISTENCIA  +" where " + ENVIADO + " = 0 AND "+FECHA_TEXTO+"<>'"+ Settings.FECHA +"'";
+        String selectQuery = "SELECT * FROM " + TABLE_ASISTENCIA  +" where " + ENVIADO + " = 0 AND "+FECHA_TEXTO+"<>'"+ Settings.getInstanacia().getFECHA() +"'";
         SQLiteDatabase data = db.getWritableDatabase();
         Cursor cursor = data.rawQuery(selectQuery, null);
         // looping through all rows and adding to list

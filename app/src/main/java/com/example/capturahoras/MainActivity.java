@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
 
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.subtitulo);
-        navUsername.setText(Settings.USUARIO);
+        navUsername.setText(Settings.getInstanacia().getUSUARIO());
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_fin_jornada:
-                FileLog.e(Complementos.TAG_MAIN, "preciono menu fin jornada "+ Settings.USUARIO);
+                FileLog.e(Complementos.TAG_MAIN, "preciono menu fin jornada "+ Settings.getInstanacia().getUSUARIO());
                 if (SesionControl.validarSesion()) {
                     //SesionControl.finalizarSesion();
                     //dialogoInf("Session finalizada");
@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        FileLog.e(Complementos.TAG_MAIN, "dialog confirmacin de finalizacion jornada");
                         SesionControl.finalizarSesion();
                         dialogInterface.dismiss();
                         dialogoInf("Session finalizada");

@@ -89,7 +89,7 @@ public class inicioActivity extends AppCompatActivity implements DialogoProgreso
             Dialogs.DialogError(Exceptions.exception.getMessage());
 
         btniniciar.setEnabled(SesionControl.getUsuario());
-        etUsuario.setText(Settings.USUARIO);
+        etUsuario.setText(Settings.getInstanacia().getUSUARIO());
     }
 
     @Override
@@ -128,7 +128,7 @@ public class inicioActivity extends AppCompatActivity implements DialogoProgreso
     private void iniciar(){
         //guardar usuario y continuar
 
-        if(Settings.URL.length()==0){
+        if(Settings.getInstanacia().getURL().length()==0){
             Dialogs.DialogError("Falta configuracion");
             FileLog.i(Complementos.TAG_LOGIN, "falta configurar catalogos");
             return;

@@ -60,7 +60,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -91,7 +91,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
 
@@ -123,7 +123,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -154,7 +154,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -189,7 +189,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -224,7 +224,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -259,7 +259,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -294,7 +294,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -348,7 +348,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -391,7 +391,7 @@ public class Catalogos {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.URL)
+                .baseUrl(Settings.getInstanacia().getURL())
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

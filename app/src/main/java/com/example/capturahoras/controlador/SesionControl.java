@@ -23,60 +23,62 @@ public class SesionControl {
 
     public static boolean inicializarSesion(){
         FileLog.i(Complementos.TAG_COFIG,"inicializar sesion");
-        ISettingDAO settings = new SettingDAO(Settings.CONTEXT);
+        ISettingDAO settingsDAO = new SettingDAO(Settings.CONTEXT);
         boolean res = true;
-        settings.leerPorId(1);
+        Settings settings = settingsDAO.leerPorId(1);
 
-        if(Settings.DATE == null){
+        if(settings.getDATE() == null){
             //inicializar settings
             FileLog.i(Complementos.TAG_COFIG,"crear registro en la base de datos SETTING");
-            Settings.DATE = new Date();
-            Settings.FECHA = Complementos.convertirDateAstring(Settings.DATE);
-            Settings.URL = "";
-            Settings.USUARIO = "";
-            Settings.FIN_JORNADA=0;
+            settings.setDATE(new Date());
+            settings.setFECHA(Complementos.convertirDateAstring2(settings.getDATE()));
+            settings.setUSUARIO("");
+            settings.setUSUARIO("");
+            settings.setFIN_JORNADA(0);
 
-            settings.guardar(null);
+            settingsDAO.guardar(settings);
         }
 
         return res;
     }
 
     public boolean actualizarInicioSesion(){
-        FileLog.i(Complementos.TAG_COFIG,"actualizar sesion");
-        String usuarioActual = Settings.USUARIO;
+        FileLog.i(Complementos.TAG_COFIG,"actualizar actualizarInicioSesion");
+        Settings settings = Settings.getInstanacia();
+        String usuarioActual = settings.getUSUARIO();
 
-        Date dateInicio = Settings.DATE;
-        String fechaInicio =Settings.FECHA;
-        int jornada = Settings.FIN_JORNADA;
+        Date dateInicio = settings.getDATE();
+        String fechaInicio =settings.getFECHA();
+        int jornada = settings.getFIN_JORNADA();
 
         Date actual = new Date();
         String fechaActual = Complementos.convertirDateAstring(actual,"dd/MM/yyyy");
 
+        FileLog.i(Complementos.TAG_COFIG,"Fecha setting "+fechaInicio+"--actual "+fechaActual);
         if(fechaInicio.equals(fechaActual))
             return true;
 
-        Settings.DATE = actual;
-        Settings.FECHA = fechaActual;
-        Settings.USUARIO = "";
-        Settings.FIN_JORNADA = 0;
 
-        boolean b = new SettingDAO(Settings.CONTEXT).updateFecha();
+        settings.setDATE(actual);
+        settings.setFECHA(fechaActual);
+        settings.setUSUARIO("");
+        settings.setFIN_JORNADA(0);
+
+        boolean b = new SettingDAO(Settings.CONTEXT).updateFecha(settings.getDATE(),settings.getFECHA());
         if(!b){
-            Settings.DATE = dateInicio;
-            Settings.FECHA = fechaInicio;
-            Settings.USUARIO = usuarioActual;
-            Settings.FIN_JORNADA = jornada;
+            FileLog.i(Complementos.TAG_COFIG,"error actualizar sesion");
+            settings.setDATE(dateInicio);
+            settings.setFECHA(fechaInicio);
+            settings.setUSUARIO(usuarioActual);
+            settings.setFIN_JORNADA(jornada);
             return false;
         }
 
         return true;
     }
 
-
-
     public static boolean inicializarCatalogos(){
-
+        FileLog.i(Complementos.TAG_COFIG,"inicializarCatalogos");
         TrabajadoresControl.getTrabajadores(Settings.CONTEXT);
 
         return true;
@@ -101,7 +103,9 @@ public class SesionControl {
 
     public static boolean validarConfiguraciones(){
 
-        if(Settings.MAILS.equals("") || Settings.URL.equals("")){
+        FileLog.e(Complementos.TAG_COFIG, "validarConfiguraciones");
+        Settings settings = Settings.getInstanacia();
+        if(settings.getMAILS().equals("") || settings.getURL().equals("")){
             FileLog.e(Complementos.TAG_COFIG, "falta agregar configuraciones");
             return false;
         }
@@ -111,30 +115,34 @@ public class SesionControl {
     }
 
     public static boolean getUsuario(){
+        FileLog.e(Complementos.TAG_COFIG, "validarUsuario");
         boolean res = true;
-
-        if(Settings.USUARIO == null || Settings.USUARIO.equals(""))
+        Settings settings = Settings.getInstanacia();
+        if(settings.getUSUARIO() == null || settings.getUSUARIO().equals(""))
             return false;
 
         return res;
     }
 
     public static boolean actualizarUsuario(String usuario){
+        FileLog.e(Complementos.TAG_COFIG, "actualizarUsuario "+usuario);
         usuario = usuario.toUpperCase();
-        String usuarioAnterior =Settings.USUARIO;
+        Settings settings = Settings.getInstanacia();
+        String usuarioAnterior =settings.getUSUARIO();
         if(usuario.equals("")){
             Exceptions.exception = new Exception(Settings.CONTEXT.getString(R.string.msn_Error_usuario));
+            FileLog.e(Complementos.TAG_COFIG, "actualizarUsuario "+Settings.CONTEXT.getString(R.string.msn_Error_usuario));
             return false;
         }
 
         if(usuario.equals(usuarioAnterior))
             return true;
 
-        Settings.USUARIO = usuario;
-        ISettingDAO settings = new SettingDAO(Settings.CONTEXT);
-        boolean b = settings.updateUsuario();
+        settings.setUSUARIO(usuario);
+        ISettingDAO settingsDAO = new SettingDAO(Settings.CONTEXT);
+        boolean b = settingsDAO.updateUsuario(usuario);
         if(!b){
-            Settings.USUARIO = usuarioAnterior;
+            settings.setUSUARIO(usuarioAnterior);
             return false;
         }
 
@@ -142,17 +150,18 @@ public class SesionControl {
     }
 
     public static boolean actualizarUrlServidor(String url){
-
+        FileLog.e(Complementos.TAG_COFIG, "actualizarUrlServidor "+url);
+        Settings settings = Settings.getInstanacia();
         if(url.equals("")){
             Exceptions.exception = new Exception(Settings.CONTEXT.getString(R.string.msn_Error_url));
             return false;
         }
 
-        String ant =Settings.URL;
-        Settings.URL = url;
-        boolean b = new SettingDAO(Settings.CONTEXT).updateUrl();
+        String ant =settings.getURL();
+        settings.setURL(url);
+        boolean b = new SettingDAO(Settings.CONTEXT).updateUrl(url);
         if(!b){
-            Settings.URL = ant;
+            settings.setURL(ant);
             return false;
         }
 
@@ -161,35 +170,50 @@ public class SesionControl {
     }
 
     public static boolean actualizarMails(String mails){
-
+        FileLog.e(Complementos.TAG_COFIG, "actualizarMails "+mails);
+        Settings settings = Settings.getInstanacia();
         if(mails.equals("")){
             Exceptions.exception = new Exception(Settings.CONTEXT.getString(R.string.msn_Error_mails));
             return false;
         }
 
-        Settings.MAILS = mails;
-        boolean b = new SettingDAO(Settings.CONTEXT).updateMail();
-        if(!b)
+        String ant = settings.getMAILS();
+
+        settings.setMAILS(mails);
+        boolean b = new SettingDAO(Settings.CONTEXT).updateMail(mails);
+        if(!b){
+            settings.setMAILS(ant);
             return false;
+        }
 
         return true;
     }
 
 
     public static boolean validarSesion(){
-        //0=jornada Iniciada, 1=Jornada finalizada
-        if(Settings.FIN_JORNADA == 1)
+        FileLog.e(Complementos.TAG_COFIG, "validarSesion ");
+        Settings settings = Settings.getInstanacia();
+        //0=jornada Iniciada=true, 1=Jornada finalizada=false
+        if(settings.getFIN_JORNADA() == 1)
             return false;
 
         return true;
     }
 
     public static boolean finalizarSesion(){
-        FileLog.e(Complementos.TAG_COFIG, "finalizar setting "+Settings.valor());
-        Settings.FIN_JORNADA = 1;
-        boolean b = new SettingDAO(Settings.CONTEXT).updateJornada();
-        if(!b)
+        Settings settings = Settings.getInstanacia();
+
+        FileLog.e(Complementos.TAG_COFIG, "finalizar setting "+settings.valor());
+        int ant = settings.getFIN_JORNADA();
+
+        settings.setFIN_JORNADA(1);
+        boolean b = new SettingDAO(Settings.CONTEXT).updateJornada(1);
+        if(!b){
+            FileLog.e(Complementos.TAG_COFIG, "Jornada no finalizada");
+            settings.setFIN_JORNADA(ant);
             return false;
+        }
+
 
         return true;
     }
