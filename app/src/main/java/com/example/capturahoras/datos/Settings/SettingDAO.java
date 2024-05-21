@@ -99,7 +99,7 @@ public class SettingDAO implements ISettingDAO{
             values.put(SETTINGS_DATE,Settings.DATE.getTime());
             values.put(SETTINGS_FECHA,Settings.FECHA);
             values.put(SETTINGS_USUARIO,Settings.USUARIO);
-            values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
+            //values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
@@ -232,7 +232,7 @@ public class SettingDAO implements ISettingDAO{
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);
-            FileLog.e(Complementos.TAG_SETTINGS, "setting update JORNADA"+Settings.USUARIO);
+            FileLog.e(Complementos.TAG_SETTINGS, "setting update JORNADA"+Settings.FIN_JORNADA);
             return true;
         }catch (Exception ex){
             Exceptions.exception = ex;

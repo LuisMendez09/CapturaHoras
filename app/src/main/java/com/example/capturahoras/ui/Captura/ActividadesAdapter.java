@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +38,13 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private CheckBox actividad;
+        private TextView precio;
 
         public ViewHolder(@NonNull View viewItem) {
             super(viewItem);
 
             actividad = viewItem.findViewById(R.id.cb_checkbox);
+            precio = viewItem.findViewById(R.id.tv_precio);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,6 +69,7 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
         }
 
         public CheckBox getActividadView(){return actividad;}
+        public TextView getPrecioView(){return precio;}
     }
 
     public List<Actividades> getActividadesSelecc(){
@@ -103,7 +107,7 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //crea una nueva vista por cada uno de los elementros del dataset
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_seleccion_checkbox,parent,false);
+                .inflate(R.layout.item_seleccion_actividad,parent,false);
 
         return new ActividadesAdapter.ViewHolder(view);
     }
@@ -112,8 +116,12 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //obtine el elemento del dataset en esta posicion y remplaza el contenido de la vista por cada elemento
         CheckBox actividadView = holder.getActividadView();
+        TextView precioView = holder.getPrecioView();
+
         Actividades actividades = listaFiltrada.get(position);
+
         actividadView.setText(actividades.getDescripcion());
+        precioView.setText(actividades.getPrecio()+"");
         actividadView.setChecked(actividades.isSelect());
 
     }

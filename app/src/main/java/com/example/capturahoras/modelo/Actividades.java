@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Actividades implements Serializable {
     private int clave;
     private String descripcion;
+    private float precio;
     private boolean select = false;
 
     public int getClave() {
@@ -23,6 +24,14 @@ public class Actividades implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
     public boolean isSelect() {
         return select;
     }
@@ -36,6 +45,7 @@ public class Actividades implements Serializable {
         return "Actividades{" +
                 "clave=" + clave +
                 ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
                 '}';
     }
 }

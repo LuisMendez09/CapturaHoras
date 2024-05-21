@@ -48,15 +48,17 @@ public class AsistenciaAdaptar extends ArrayAdapter<Asistencia> {
         numeroT.setText(a.getTrabajador().getNumero()+"");
         horas.setText("Horas: " + String.valueOf( a.getTotalHoras()));
 
-        String act = "";
+        //String act = "";
+        String pre = "";
         String c = "";
         String t = "";
 
-        act = keys.toString();
-        actividad.setText(act);
+        //act = keys.toString();
+        //actividad.setText(act);
 
         for(String key : keys){
             CamposTrabajados ct = hct.get(key);
+            pre = pre +", "+ct.getActividades().getDescripcion()+ "="+ct.getActividades().getPrecio();
             if(ct.getCampo() != null){
                 for (Campos cam : ct.getCampo()) {
                     c = c +"," + cam.getDescripcion();
@@ -66,7 +68,7 @@ public class AsistenciaAdaptar extends ArrayAdapter<Asistencia> {
             if(ct.getTablaProrrateo() != null)
                 t = t +"," + ct.getTablaProrrateo().getDescripcion();
         }
-
+        actividad.setText(pre);
         campos.setText(c);
         tablas.setText(t);
 

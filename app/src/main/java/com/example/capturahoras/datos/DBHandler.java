@@ -3,6 +3,7 @@ package com.example.capturahoras.datos;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -25,6 +26,9 @@ import com.example.capturahoras.datos.tablaProrrate.ITablaProrrateoDAO;
 public class DBHandler extends SQLiteOpenHelper  {
 
     private static DBHandler instacia = null;
+
+    private static final String UPDATE_ACTIVIDAD_PRECIO = "ALTER TABLE "+IActividadesDAO.TABLE_ACTIVIDADES
+            +" ADD "+ IActividadesDAO.PRECIO + " REAL NOT NULL DEFAULT 0.0;";
 
     public static DBHandler getInstancia(Context context){
         if(instacia == null){
@@ -68,7 +72,8 @@ public class DBHandler extends SQLiteOpenHelper  {
         FileLog.v(Complementos.TAG_BDHANDLER,"INICIA CREACION DE LAS TABLAS ACTIVIDADES");
         CREATE_TABLE = "CREATE TABLE " + IActividadesDAO.TABLE_ACTIVIDADES + "("
                 + IActividadesDAO.CLAVE + " INTEGER PRIMARY KEY,"
-                + IActividadesDAO.DESCRIPCION+ " TEXT"+ ")";
+                + IActividadesDAO.DESCRIPCION+ " TEXT,"
+                + IActividadesDAO.PRECIO + " REAL"+ ")";
 
         sqLiteDatabase.execSQL(CREATE_TABLE);
         FileLog.v(Complementos.TAG_BDHANDLER,"TERMINA CREACION DE LAS TABLAS ACTIVIDADES");
@@ -161,20 +166,30 @@ public class DBHandler extends SQLiteOpenHelper  {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ITrabajadoresDAO.TABLE_TRABAJADORES);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IActividadesDAO.TABLE_ACTIVIDADES);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICamposDAO.TABLE_CAMPOS);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ITablaProrrateoDAO.TABLE_TABLAPRORRATEO);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IGrupoCamposDAO.TABLE_GRUPOPRORRATEO);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IAsistenciaDAO.TABLE_ASISTENCIA);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICamposTrabajadosDAO.TABLE_CAMPOSTRABAJADOS);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IProductosDAO.TABLE_PRODUCTOS);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IEtapasDAO.TABLE_ETAPAS);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICceDAO.TABLE_CCE);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ISettingDAO.TABLA_SETTINGS);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        if(oldVersion == newVersion){
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ITrabajadoresDAO.TABLE_TRABAJADORES);
+            //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IActividadesDAO.TABLE_ACTIVIDADES);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICamposDAO.TABLE_CAMPOS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ITablaProrrateoDAO.TABLE_TABLAPRORRATEO);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IGrupoCamposDAO.TABLE_GRUPOPRORRATEO);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IAsistenciaDAO.TABLE_ASISTENCIA);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICamposTrabajadosDAO.TABLE_CAMPOSTRABAJADOS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IProductosDAO.TABLE_PRODUCTOS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IEtapasDAO.TABLE_ETAPAS);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ICceDAO.TABLE_CCE);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ISettingDAO.TABLA_SETTINGS);
 
-        onCreate(sqLiteDatabase);
+            onCreate(sqLiteDatabase);
+        }else{
+            if(oldVersion == 1 && newVersion>=2){
+                Log.e("Log android","actualiuzacion tablas en metodo onUpgrade()");
+                sqLiteDatabase.execSQL(UPDATE_ACTIVIDAD_PRECIO);
+            }
+        }
+
+
+
     }
 
 

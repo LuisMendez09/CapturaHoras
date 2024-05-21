@@ -15,11 +15,11 @@ public interface ISettingDAO extends CRUD<Settings> {
     String SETTINGS_USUARIO ="usuario";
     String SETTINGS_JORNADA_FINALIZADA="finJornada";
 
-    public String getUsuario();
-    public boolean updateUsuario();
-    public boolean updateMail();
-    public boolean updateUrl();
-    public boolean updateFecha();
-    public boolean updateJornada();
+    String getUsuario();
+    boolean updateUsuario();
+    boolean updateMail();
+    boolean updateUrl();
+    boolean updateFecha();
+    boolean updateJornada();
 
 }

@@ -37,6 +37,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
                 actividad = new Actividades();
                 actividad.setClave(cursor.getInt(0));
                 actividad.setDescripcion(cursor.getString(1));
+                actividad.setPrecio(cursor.getFloat(2));
 
                 actividades.add(actividad);
             } while (cursor.moveToNext());
@@ -79,6 +80,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
                 actividades = new Actividades();
                 actividades.setClave(cursor.getInt(0));
                 actividades.setDescripcion(cursor.getString(1));
+                actividades.setPrecio(cursor.getFloat(2));
             } while (cursor.moveToNext());
         }
         // return contact list
@@ -105,6 +107,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
                 actividades = new Actividades();
                 actividades.setClave(cursor.getInt(0));
                 actividades.setDescripcion(cursor.getString(1));
+                actividades.setPrecio(cursor.getFloat(2));
             } while (cursor.moveToNext());
         }
         // return contact list
@@ -125,6 +128,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
 
         values.put(CLAVE ,o.getClave());
         values.put(DESCRIPCION ,o.getDescripcion());
+        values.put(PRECIO ,o.getPrecio());
 
         Long insert = data.insert(TABLE_ACTIVIDADES, null, values);
 
@@ -144,6 +148,7 @@ public class DatosActividadesDAO implements IActividadesDAO {
             ContentValues values = new ContentValues();
 
             values.put(DESCRIPCION ,o.getDescripcion());
+            values.put(PRECIO ,o.getPrecio());
 
             i = data.update(TABLE_ACTIVIDADES, values, CLAVE + " = ?",
                     new String[]{String.valueOf(o.getClave())});
@@ -165,7 +170,8 @@ public class DatosActividadesDAO implements IActividadesDAO {
 
         String CREATE_TABLE = "CREATE TABLE " + TABLE_ACTIVIDADES + "("
                 + CLAVE + " INTEGER PRIMARY KEY,"
-                + DESCRIPCION+ " TEXT"+ ")";
+                + DESCRIPCION+ " TEXT,"
+                + PRECIO + " REAL"+ ")";
         data.execSQL(CREATE_TABLE);
     }
 }

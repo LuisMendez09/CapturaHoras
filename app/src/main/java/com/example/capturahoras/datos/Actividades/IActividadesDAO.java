@@ -9,6 +9,7 @@ public interface IActividadesDAO extends CRUD<Actividades> {
 
     String CLAVE="Clave";
     String DESCRIPCION="Descripcion";
+    String PRECIO="Precio";
 
     void reiniciarTabla();
     Actividades leerPorDescripcion(String descripcion);

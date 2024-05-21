@@ -29,6 +29,7 @@ public class SesionControl {
 
         if(Settings.DATE == null){
             //inicializar settings
+            FileLog.i(Complementos.TAG_COFIG,"crear registro en la base de datos SETTING");
             Settings.DATE = new Date();
             Settings.FECHA = Complementos.convertirDateAstring(Settings.DATE);
             Settings.URL = "";
@@ -36,7 +37,6 @@ public class SesionControl {
             Settings.FIN_JORNADA=0;
 
             settings.guardar(null);
-
         }
 
         return res;
