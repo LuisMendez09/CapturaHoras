@@ -31,7 +31,7 @@ import java.util.List;
 public class DetalleFragment extends Fragment {
     private Asistencia asistencia;
     private boolean edicion;
-    private HashMap<Integer,Campos> camposSelccionados;
+    private HashMap<Long,Campos> camposSelccionados;
 
     private ListView listaCamposSeleccionados;
     private Button btn_guardar;

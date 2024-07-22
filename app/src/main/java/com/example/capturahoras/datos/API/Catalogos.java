@@ -1,6 +1,7 @@
 package com.example.capturahoras.datos.API;
 
 import com.example.capturahoras.complemento.Complementos;
+import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.controlador.CamposControl;
 import com.example.capturahoras.datos.API.ActividadesAPI.IActividadesAPIService;
 import com.example.capturahoras.datos.API.AsistenciaAPI.EndpointAsistencia;
@@ -368,6 +369,7 @@ public class Catalogos {
                     } catch (IOException e) {
                         e.printStackTrace();
                         exception = e;
+                        FileLog.e("API",e.getMessage());
                         return false;
                     }
                 }

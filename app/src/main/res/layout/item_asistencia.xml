@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="numero" />
 
 
@@ -41,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="nombre trabajador" />
 
                 <TextView
@@ -49,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="horas" />
 
             </LinearLayout>
@@ -68,6 +71,7 @@
                         android:layout_width="0dp"
                         android:layout_height="20dp"
                         android:layout_weight="0.2"
+                        android:textStyle="bold"
                         android:text="Actividad: " />
 
                     <TextView
@@ -88,6 +92,7 @@
                         android:layout_width="0dp"
                         android:layout_height="20dp"
                         android:layout_weight="0.2"
+                        android:textStyle="bold"
                         android:text="Campos: " />
 
                     <TextView
@@ -108,6 +113,7 @@
                         android:layout_width="0dp"
                         android:layout_height="20dp"
                         android:layout_weight="0.2"
+                        android:textStyle="bold"
                         android:text="Tablas: " />
 
                     <TextView

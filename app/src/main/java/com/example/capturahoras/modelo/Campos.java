@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Campos implements Serializable {
-    private int clave;
+    private long clave;
     private String descripcion;
     private double superficie;
     private List<TablasProrrateo> tablas_Prorateo;
@@ -26,11 +26,11 @@ public class Campos implements Serializable {
 
     private boolean select = false;
 
-    public int getClave() {
+    public long getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(long clave) {
         this.clave = clave;
     }
 

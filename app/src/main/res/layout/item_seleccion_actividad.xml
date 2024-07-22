@@ -16,10 +16,16 @@
             android:text="actividad" />
 
         <TextView
+            android:id="@+id/tv_clave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="0.0" />
+        <TextView
             android:id="@+id/tv_precio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:text="0.0" />
     </LinearLayout>
 

@@ -13,7 +13,7 @@ public final class KeyValues {
     public static final String EXTENCIO_ZIP = ".zip";
     public static final String ZIP_NAME = "archivoZip";
     // Database Version
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     // Database Name
     public static final int READ_REQUEST_CODE = 7526;
 

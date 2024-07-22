@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.capturahoras.complemento.Complementos;
 import com.example.capturahoras.complemento.FileLog;
 import com.example.capturahoras.datos.DBHandler;
+import com.example.capturahoras.modelo.Campos;
 import com.example.capturahoras.modelo.Trabajadores;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
     private DBHandler db;
+    private static ArrayList<Trabajadores> trabajadores = new ArrayList<Trabajadores>();
 
     public DatosTrabajadoresDAO(Context context) {
         db= DBHandler.getInstancia(context);
@@ -22,7 +24,9 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
 
     @Override
     public List<Trabajadores> listarActivos() {
-        ArrayList<Trabajadores> trabajadores = new ArrayList<Trabajadores>();
+        if(trabajadores.size()>0)
+            return trabajadores;
+
         Trabajadores trabajador = null;
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_TRABAJADORES + " WHERE "+STATUS+"=1" ;
@@ -49,6 +53,8 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
 
     @Override
     public int ContarRegistros() {
+        if(trabajadores.size()>0)
+            return trabajadores.size();
 
         String selectQuery = "SELECT * FROM " + TABLE_TRABAJADORES + " WHERE "+STATUS+"=1" ;
         int total=0;
@@ -65,6 +71,13 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
 
     @Override
     public Trabajadores leerPorId(int id) {
+        if(trabajadores.size()>0){
+            for (Trabajadores t :trabajadores) {
+                if(t.getNumero()==id)
+                    return t;
+            }
+        }
+
         Trabajadores trabajador = null;
 
         String selectQuery = "SELECT * FROM " + TABLE_TRABAJADORES +" WHERE "+CLAVE+" = '"+id+"' ";
@@ -91,18 +104,21 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
 
     @Override
     public void guardar(Trabajadores o) {
-        FileLog.v(Complementos.TAG_BDHANDLER,"AÑADIR TRABAJADOR "+o.toString());
+        FileLog.v(Complementos.TAG_BDHANDLER, "AÑADIR TRABAJADOR " + o.toString());
         SQLiteDatabase data = db.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(CLAVE ,o.getNumero());
-        values.put(NOMBRE ,o.getNombre());
-        values.put(STATUS ,o.getEstatusInt());
+        values.put(CLAVE, o.getNumero());
+        values.put(NOMBRE, o.getNombre());
+        values.put(STATUS, o.getEstatusInt());
 
         Long insert = data.insert(TABLE_TRABAJADORES, null, values);
 
-        if(insert ==-1)
-            FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION TRABAJADOR ");
+        if (insert == -1)
+            FileLog.v(Complementos.TAG_BDHANDLER, "ERROR DE INSERSION TRABAJADOR ");
+        else
+            trabajadores.add(o);
+
         db.close(); // Closing database connection
 
         return;
@@ -121,6 +137,16 @@ public class DatosTrabajadoresDAO implements ITrabajadoresDAO {
 
             i = data.update(TABLE_TRABAJADORES, values, CLAVE + " = ?",
                     new String[]{String.valueOf(o.getNumero())});
+
+            if(i>0){
+                for(int j=0;j<trabajadores.size();j++){
+                    if(trabajadores.get(j).getNumero()==o.getNumero()){
+                        trabajadores.set(j,o);
+                        break;
+                    }
+                }
+            }
+
             data.close();
         }catch (Exception e){
             FileLog.v(Complementos.TAG_BDHANDLER,"error "+e.getMessage());

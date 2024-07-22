@@ -65,6 +65,10 @@ public class SesionControl {
         settings.setFIN_JORNADA(0);
 
         boolean b = new SettingDAO(Settings.CONTEXT).updateFecha(settings.getDATE(),settings.getFECHA());
+        FileLog.i(Complementos.TAG_COFIG,"respuesta "+b);
+        if(b)
+            b = new SettingDAO(Settings.CONTEXT).updateJornada(settings.getFIN_JORNADA());
+
         if(!b){
             FileLog.i(Complementos.TAG_COFIG,"error actualizar sesion");
             settings.setDATE(dateInicio);

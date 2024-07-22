@@ -53,10 +53,18 @@
             android:text="Actividad"
             android:textStyle="bold" />
         <TextView
+            android:id="@+id/tv3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="Clave"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/tv2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:gravity="center"
             android:text="precio"
             android:textStyle="bold" />

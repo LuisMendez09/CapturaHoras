@@ -18,5 +18,5 @@ public interface ICamposAPIService {
     Call<List<Campos>> getCampos();
     @Headers("Content-Type: application/json")
     @PUT("campos/{id}/")
-    Call<Void> PutCampos(@Path("id") int clave, @Body String camposTrabajados);
+    Call<Void> PutCampos(@Path("id") Long clave, @Body String camposTrabajados);
 }

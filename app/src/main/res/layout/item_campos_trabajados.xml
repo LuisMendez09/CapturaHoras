@@ -18,6 +18,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
+                android:textStyle="bold"
                 android:text="Actividad:" />
             <TextView
                 android:id="@+id/textView2"
@@ -61,6 +62,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
+                android:textStyle="bold"
                 android:text="Campos:" />
 
             <TextView
@@ -81,6 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
+                android:textStyle="bold"
                 android:text="Tablas: " />
 
             <TextView

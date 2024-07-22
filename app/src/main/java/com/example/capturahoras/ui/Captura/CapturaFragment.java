@@ -94,7 +94,6 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         tv_horaFinal.setOnClickListener(v1 -> getTime(tv_horaFinal));
 
         guardar.setOnClickListener(view12 -> {
-
             DialogoGuardarCambio();
         });
         cancelar.setOnClickListener(view1 -> NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false));
@@ -248,9 +247,19 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
         }
 
         asistencias.setCamposTrabajados(hct);
-        if(campos.size()==0){
+
+        boolean mallas = false;
+        Collection<CamposTrabajados> values = hct.values();
+        for (CamposTrabajados ct :hct.values()) {
+            if(ct.getCampo().size() >0){
+                mallas = true;
+                break;
+            }
+        }
+        if(!mallas){
             AsistenciaControl.actualizar(this.getContext(),asistencias);
             NavHostFragment.findNavController(CapturaFragment.this).popBackStack(R.id.nav_home, false);
+            return;
         }
 
         CapturaFragmentDirections.ActionCapturaFragmentToDetalleFragment2 action = CapturaFragmentDirections.actionCapturaFragmentToDetalleFragment2(asistencias);

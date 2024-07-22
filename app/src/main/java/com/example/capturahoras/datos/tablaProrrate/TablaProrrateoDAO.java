@@ -16,6 +16,7 @@ import java.util.List;
 public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
     private DBHandler db;
+    private static ArrayList<TablasProrrateo> tps = new ArrayList<TablasProrrateo>();
 
     public TablaProrrateoDAO(Context c) {
         db= DBHandler.getInstancia(c);
@@ -23,7 +24,9 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
     @Override
     public List<TablasProrrateo> listarActivos() {
-        ArrayList<TablasProrrateo> tps = new ArrayList<TablasProrrateo>();
+        if(tps.size()>0)
+            return tps;
+
         TablasProrrateo tp = null;
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_TABLAPRORRATEO ;
@@ -49,6 +52,8 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
     @Override
     public int ContarRegistros() {
+        if(tps.size()>0)
+            return tps.size();
 
         String selectQuery = "SELECT * FROM " + TABLE_TABLAPRORRATEO ;
         int total=0;
@@ -65,6 +70,13 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
     @Override
     public TablasProrrateo leerPorId(int id) {
+        if(tps.size()>0) {
+            for (TablasProrrateo tp :tps) {
+                if(tp.getId()==String.valueOf(id))
+                    return tp;
+            }
+        }
+
         TablasProrrateo tp = null;
 
         String selectQuery = "SELECT * FROM " + TABLE_TABLAPRORRATEO +" WHERE "+CLAVE+" = '"+id+"' ";
@@ -90,6 +102,13 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
     @Override
     public TablasProrrateo leerPorDescripcion(String descripcion) {
+        if(tps.size()>0) {
+            for (TablasProrrateo tp :tps) {
+                if(tp.getDescripcion()==descripcion)
+                    return tp;
+            }
+        }
+
         TablasProrrateo tp = null;
 
         String selectQuery = "SELECT * FROM " + TABLE_TABLAPRORRATEO +" WHERE "+DESCRIPCION+" = '"+descripcion+"' ";
@@ -126,6 +145,9 @@ public class TablaProrrateoDAO implements ITablaProrrateoDAO{
 
         if(insert ==-1)
             FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Tabla prorrateo ");
+        else
+            tps.add(o);
+
         db.close(); // Closing database connection
 
         return;

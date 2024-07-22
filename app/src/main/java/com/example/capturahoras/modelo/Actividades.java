@@ -3,16 +3,16 @@ package com.example.capturahoras.modelo;
 import java.io.Serializable;
 
 public class Actividades implements Serializable {
-    private int clave;
+    private long clave;
     private String descripcion;
     private float precio;
     private boolean select = false;
 
-    public int getClave() {
+    public long getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(long clave) {
         this.clave = clave;
     }
 

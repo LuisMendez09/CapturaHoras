@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public interface IAsistenciaDAO extends CRUD<Asistencia> {
     String TABLE_ASISTENCIA="Asistencia";
+    String VIEW_ASISTENCIA="V_asistencia";
+
     String FECHA ="fecha";
     String FECHA_TEXTO ="fechaTexto";
     String ID_TRABAJADOR ="idTrabajador";

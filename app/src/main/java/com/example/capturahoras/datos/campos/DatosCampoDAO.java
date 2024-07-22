@@ -26,6 +26,7 @@ import java.util.List;
 public class DatosCampoDAO implements ICamposDAO{
     private DBHandler db;
     private Context context;
+    private static ArrayList<Campos> campos = new ArrayList<Campos>();
 
     public DatosCampoDAO(Context c) {
         db= DBHandler.getInstancia(c);
@@ -34,7 +35,10 @@ public class DatosCampoDAO implements ICamposDAO{
 
     @Override
     public List<Campos> listarActivos() {
-        ArrayList<Campos> campos = new ArrayList<Campos>();
+        //ArrayList<Campos> campos = new ArrayList<Campos>();
+        if(campos.size()>0)
+            return campos;
+
         Campos campo = null;
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_CAMPOS + " as c "
@@ -47,7 +51,7 @@ public class DatosCampoDAO implements ICamposDAO{
         if (cursor.moveToFirst()) {
             do {
                 campo = new Campos();
-                campo.setClave(cursor.getInt(0));
+                campo.setClave(cursor.getLong(0));
                 campo.setSuperficie(cursor.getFloat(1));
                 campo.setDescripcion(cursor.getString(2));
 
@@ -79,6 +83,8 @@ public class DatosCampoDAO implements ICamposDAO{
 
     @Override
     public int ContarRegistros() {
+        if(campos.size()>0)
+            return campos.size();
 
         String selectQuery = "SELECT * FROM " + TABLE_CAMPOS;
         int total=0;
@@ -95,6 +101,14 @@ public class DatosCampoDAO implements ICamposDAO{
 
     @Override
     public Campos leerPorId(int id) {
+        if(campos.size()>0){
+            for (Campos c :campos) {
+                if(c.getClave()==id)
+                    return c;
+            }
+        }
+
+
         Campos campo = null;
 
         String selectQuery = "SELECT * FROM " + TABLE_CAMPOS +" WHERE "+CLAVE+" = '"+id+"' ";
@@ -104,7 +118,7 @@ public class DatosCampoDAO implements ICamposDAO{
         if (cursor.moveToFirst()) {
             do {
                 campo = new Campos();
-                campo.setClave(cursor.getInt(0));
+                campo.setClave(cursor.getLong(0));
                 campo.setSuperficie(cursor.getFloat(1));
                 campo.setDescripcion(cursor.getString(2));
                 campo.setProductoSeleccionado(new DatosProductoDAO(context).leerPorId(cursor.getInt(3)));
@@ -124,6 +138,13 @@ public class DatosCampoDAO implements ICamposDAO{
 
     @Override
     public Campos leerPorDescripcion(String descripcion) {
+        if(campos.size()>0){
+            for (Campos c :campos) {
+                if(c.getDescripcion()==descripcion)
+                    return c;
+            }
+        }
+
         Campos campo = null;
 
         String selectQuery = "SELECT * FROM " + TABLE_CAMPOS +" WHERE "+DESCRIPCION+" = '"+descripcion+"' ";
@@ -133,7 +154,7 @@ public class DatosCampoDAO implements ICamposDAO{
         if (cursor.moveToFirst()) {
             do {
                 campo = new Campos();
-                campo.setClave(cursor.getInt(0));
+                campo.setClave(cursor.getLong(0));
                 campo.setSuperficie(cursor.getFloat(1));
                 campo.setDescripcion(cursor.getString(2));
                 campo.setProductoSeleccionado(new DatosProductoDAO(context).leerPorId(cursor.getInt(3)));
@@ -172,6 +193,11 @@ public class DatosCampoDAO implements ICamposDAO{
 
         if(insert ==-1)
             FileLog.v(Complementos.TAG_BDHANDLER,"ERROR DE INSERSION Campo ");
+        else{
+            o.setClave(insert);
+            campos.add(o);
+        }
+
         db.close(); // Closing database connection
 
         return;
@@ -193,6 +219,16 @@ public class DatosCampoDAO implements ICamposDAO{
 
             i = data.update(TABLE_CAMPOS, values, CLAVE + " = ?",
                     new String[]{String.valueOf(o.getClave())});
+
+            if(i>0){
+                for(int j=0;j<campos.size();j++){
+                    if(campos.get(j).getClave()==o.getClave()){
+                        campos.set(j,o);
+                        break;
+                    }
+                }
+            }
+
             data.close();
         }catch (Exception e){
             FileLog.v(Complementos.TAG_BDHANDLER,"error "+e.getMessage());

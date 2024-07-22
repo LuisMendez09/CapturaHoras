@@ -53,10 +53,12 @@ public class DialogSeleccionActividad extends DialogFragment {
             return;
         }
 
-        for (Actividades act : this.actividades) {
-            for (Actividades select : actividadesSeleccionadas) {
-                if(act.getClave()== select.getClave())
-                    act.setSelect(select.isSelect());
+        for (Actividades select : actividadesSeleccionadas) {
+            for (Actividades act : this.actividades) {
+                if(act.getClave()== select.getClave()){
+                    act.setSelect(true/*select.isSelect()*/);
+                    break;
+                }
             }
         }
     }

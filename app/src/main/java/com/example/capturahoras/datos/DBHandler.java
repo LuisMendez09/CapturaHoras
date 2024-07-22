@@ -162,7 +162,20 @@ public class DBHandler extends SQLiteOpenHelper  {
         sqLiteDatabase.execSQL(CREATE_TABLE);
         FileLog.v(Complementos.TAG_BDHANDLER,"TERMINA CREACION DE LAS TABLAS CCE");
 
+        FileLog.v(Complementos.TAG_BDHANDLER,"creacion de vista asistencia");
+        CREATE_TABLE = "CREATE VIEW "+IAsistenciaDAO.VIEW_ASISTENCIA+" AS "+
+                "SELECT * FROM " + IAsistenciaDAO.TABLE_ASISTENCIA  +" as a " +
+                " inner join "+ITrabajadoresDAO.TABLE_TRABAJADORES+" as t on t."+ITrabajadoresDAO.CLAVE+"=a."+IAsistenciaDAO.ID_TRABAJADOR+
+                " inner join "+ ICamposTrabajadosDAO.TABLE_CAMPOSTRABAJADOS +" as ct on ct."+ICamposTrabajadosDAO.ID_ASISTENCIA+"=a."+IAsistenciaDAO.ID+
+                " inner join "+ IActividadesDAO.TABLE_ACTIVIDADES +" as ac on ac."+IActividadesDAO.CLAVE+"=ct."+IAsistenciaDAO.ID_ACTIVIDAD+
+                " left join "+ IProductosDAO.TABLE_PRODUCTOS +" as p on p."+IProductosDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.PRODUCTO+
+                " left join "+ ICceDAO.TABLE_CCE +" as cc on cc."+ICceDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.CCE+
+                " left join "+ IEtapasDAO.TABLE_ETAPAS +" as e on e."+IEtapasDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ETAPA+
+                " left join "+ ITablaProrrateoDAO.TABLE_TABLAPRORRATEO +" as tp on tp."+ITablaProrrateoDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ID_TABLAPRORRATEO+
+                " left join "+ICamposDAO.TABLE_CAMPOS+" as c on c."+ICamposDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ID_CAMPO;
 
+        sqLiteDatabase.execSQL(CREATE_TABLE);
+        FileLog.v(Complementos.TAG_BDHANDLER,"TERMINA CREACION DE vista asistencia");
     }
 
     @Override
@@ -185,6 +198,23 @@ public class DBHandler extends SQLiteOpenHelper  {
             if(oldVersion == 1 && newVersion>=2){
                 Log.e("Log android","actualiuzacion tablas en metodo onUpgrade()");
                 sqLiteDatabase.execSQL(UPDATE_ACTIVIDAD_PRECIO);
+            }
+
+            if(oldVersion == 2 && newVersion>=3){
+                FileLog.v(Complementos.TAG_BDHANDLER,"creacion de vista asistencia");
+                String CREATE_TABLE = "CREATE VIEW "+IAsistenciaDAO.VIEW_ASISTENCIA+" AS "+
+                        "SELECT * FROM " + IAsistenciaDAO.TABLE_ASISTENCIA  +" as a " +
+                        " inner join "+ITrabajadoresDAO.TABLE_TRABAJADORES+" as t on t."+ITrabajadoresDAO.CLAVE+"=a."+IAsistenciaDAO.ID_TRABAJADOR+
+                        " inner join "+ ICamposTrabajadosDAO.TABLE_CAMPOSTRABAJADOS +" as ct on ct."+ICamposTrabajadosDAO.ID_ASISTENCIA+"=a."+IAsistenciaDAO.ID+
+                        " inner join "+ IActividadesDAO.TABLE_ACTIVIDADES +" as ac on ac."+IActividadesDAO.CLAVE+"=ct."+IAsistenciaDAO.ID_ACTIVIDAD+
+                        " left join "+ IProductosDAO.TABLE_PRODUCTOS +" as p on p."+IProductosDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.PRODUCTO+
+                        " left join "+ ICceDAO.TABLE_CCE +" as cc on cc."+ICceDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.CCE+
+                        " left join "+ IEtapasDAO.TABLE_ETAPAS +" as e on e."+IEtapasDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ETAPA+
+                        " left join "+ ITablaProrrateoDAO.TABLE_TABLAPRORRATEO +" as tp on tp."+ITablaProrrateoDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ID_TABLAPRORRATEO+
+                        " left join "+ICamposDAO.TABLE_CAMPOS+" as c on c."+ICamposDAO.CLAVE+"=ct."+ICamposTrabajadosDAO.ID_CAMPO;
+
+                sqLiteDatabase.execSQL(CREATE_TABLE);
+                FileLog.v(Complementos.TAG_BDHANDLER,"TERMINA CREACION DE vista asistencia");
             }
         }
 

@@ -39,12 +39,14 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
         private CheckBox actividad;
         private TextView precio;
+        private TextView clave;
 
         public ViewHolder(@NonNull View viewItem) {
             super(viewItem);
 
             actividad = viewItem.findViewById(R.id.cb_checkbox);
             precio = viewItem.findViewById(R.id.tv_precio);
+            clave = viewItem.findViewById(R.id.tv_clave);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,6 +72,7 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
 
         public CheckBox getActividadView(){return actividad;}
         public TextView getPrecioView(){return precio;}
+        public TextView getClaveView(){return clave;}
     }
 
     public List<Actividades> getActividadesSelecc(){
@@ -117,11 +120,13 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
         //obtine el elemento del dataset en esta posicion y remplaza el contenido de la vista por cada elemento
         CheckBox actividadView = holder.getActividadView();
         TextView precioView = holder.getPrecioView();
+        TextView claveView = holder.getClaveView();
 
         Actividades actividades = listaFiltrada.get(position);
 
         actividadView.setText(actividades.getDescripcion());
         precioView.setText(actividades.getPrecio()+"");
+        claveView.setText(actividades.getClave()+"");
         actividadView.setChecked(actividades.isSelect());
 
     }
@@ -154,7 +159,7 @@ public class ActividadesAdapter extends RecyclerView.Adapter<ActividadesAdapter.
             else{
                 final String filtrar = charSequence.toString().toLowerCase().trim();
                 for(final Actividades v : actividades){
-                    if(v.getDescripcion().toLowerCase().contains(filtrar)){
+                    if(v.getDescripcion().toLowerCase().contains(filtrar)|| String.valueOf(v.getClave()).contains(filtrar)){
                         listaFiltrada.add(v);
 
                     }
