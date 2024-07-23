@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="Horas" />
 
         </LinearLayout>
@@ -49,7 +49,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".2"
                 android:inputType="numberDecimal"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:autoSizeMinTextSize="6sp"
                 android:autoSizeMaxTextSize="16sp"
                 android:autoSizeStepGranularity="1sp"
