@@ -29,6 +29,7 @@ import com.example.capturahoras.modelo.Actividades;
 import com.example.capturahoras.modelo.Asistencia;
 import com.example.capturahoras.modelo.Campos;
 import com.example.capturahoras.modelo.CamposTrabajados;
+import com.example.capturahoras.modelo.Settings;
 import com.example.capturahoras.modelo.Trabajadores;
 import com.example.capturahoras.modelo.TablasProrrateo;
 
@@ -191,7 +192,8 @@ public class CapturaFragment extends Fragment implements OnItemSelectListener{
 
         Asistencia asistencia = new Asistencia();
         //asistencia.setActividad(actividad);
-        asistencia.setFecha(Complementos.getDateActual().getTime());
+
+        asistencia.setFecha(Settings.getInstanacia().getDATE().getTime());
         asistencia.setTotalHoras(Float.parseFloat(et_horas.getText().toString()));
         asistencia.setTrabajador(trabajador);
         try {

@@ -17,6 +17,15 @@
         android:orderInCategory="100"
         android:title="@string/action_enviar"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_cambiar"
+        android:orderInCategory="100"
+        android:title="@string/action_cambiar"
+        app:showAsAction="always" />
+
+   
+
     <!--<item
         android:id="@+id/action_actualizarCampos"
         android:orderInCategory="100"

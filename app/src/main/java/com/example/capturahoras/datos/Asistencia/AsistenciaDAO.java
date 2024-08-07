@@ -189,7 +189,7 @@ public class AsistenciaDAO implements IAsistenciaDAO{
         Asistencia asistencia = null;
 
         String selectQuery = "SELECT * FROM " + VIEW_ASISTENCIA +
-                " where " + FECHA_TEXTO + " = '"+ Complementos.getDateActualToString() +"'"   ;
+                " where " + FECHA_TEXTO + " = '"+ Settings.getInstanacia().getFECHA() +"'"   ;
         SQLiteDatabase data = db.getWritableDatabase();
         Cursor cursor = data.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -218,7 +218,7 @@ public class AsistenciaDAO implements IAsistenciaDAO{
         String selectQuery ="SELECT * FROM " + VIEW_ASISTENCIA
                 //"SELECT * FROM " + TABLE_ASISTENCIA +" as a "
                 //+ " inner join "+ ITrabajadoresDAO.TABLE_TRABAJADORES +" as t on t."+ITrabajadoresDAO.CLAVE+"=a."+ID_TRABAJADOR
-                +" where " + FECHA_TEXTO + " = '"+ Complementos.getDateActualToString() +"' AND "+ ID_TRABAJADOR + " = "+ idTrabajador;
+                +" where " + FECHA_TEXTO + " = '"+ Settings.getInstanacia().getFECHA()+"' AND "+ ID_TRABAJADOR + " = "+ idTrabajador;
         SQLiteDatabase data = db.getWritableDatabase();
         Cursor cursor = data.rawQuery(selectQuery, null);
         // looping through all rows and adding to list

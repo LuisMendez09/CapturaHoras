@@ -1,6 +1,7 @@
 package com.example.capturahoras.ui.dialogos;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.TextView;
 
@@ -55,8 +56,8 @@ public class Dialogs {
         dialog.show();
     }
 
-    public static void dialogoInf(String mensaje) {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(Settings.CONTEXT);
+    public static void dialogoInf(String mensaje, Context context) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
 // 2. Chain together various setter methods to set the dialog characteristics.
         builder.setMessage(mensaje)
                 .setTitle("Captura de asistencia")

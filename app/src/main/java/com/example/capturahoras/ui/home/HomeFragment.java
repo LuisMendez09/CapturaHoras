@@ -1,6 +1,7 @@
 package com.example.capturahoras.ui.home;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,9 @@ import com.example.capturahoras.controlador.AsistenciaControl;
 import com.example.capturahoras.controlador.SesionControl;
 import com.example.capturahoras.controlador.TrabajadoresControl;
 import com.example.capturahoras.modelo.Asistencia;
+import com.example.capturahoras.modelo.Settings;
 import com.example.capturahoras.modelo.Trabajadores;
+import com.example.capturahoras.ui.dialogos.Dialogs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -31,7 +34,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private AsistenciaAdaptar asistenciaAdaptar;
+    private static AsistenciaAdaptar asistenciaAdaptar;
 
     private ListView lv_asistenacia;
     private FloatingActionButton fabBarcode;
@@ -47,8 +50,16 @@ public class HomeFragment extends Fragment {
 
                 HomeFragmentDirections.ActionNavHomeToCapturaFragment action = HomeFragmentDirections.actionNavHomeToCapturaFragment(t.getNumero());
                 Asistencia at = AsistenciaControl.getAsistenciaTrabajadorDia(this.getContext(), t.getNumero());
-                if(at!=null)
+                if(at!=null){
+                    if(at.getEnviado()==1){
+                        Dialogs.dialogoInf("el registro del trabajador "+at.getTrabajador().getNombre()+" para el día "+ Settings.getInstanacia().getFECHA()
+                                +" no se puede editar, porque ya se envio al departamento de nóminas.\nComuniquese con el departamento de nóminas para más información.",getContext());
+                        return;
+                    }
+
                     action.setIdAsistencia(at.getId());
+                }
+
                 //action.setTrabajador(t);
                 //action.setAsistenacia(AsistenciaControl.getAsistenciaTrabajador(this.getContext(),t.getNumero()));
                 Navigation.findNavController(getActivity(),fabBarcode.getId()).navigate(action);
@@ -117,6 +128,11 @@ public class HomeFragment extends Fragment {
 
             if(SesionControl.validarSesion()){
                 Asistencia item = asistenciaAdaptar.getItem(i);
+                if(item.getEnviado()==1){
+                    DialogoInf("Este registro no se puede eliminar, porque ya se envio al departamento de nominas");
+                    return true;
+                }
+
                 DialogoEliminar(item);
             }else{
                 DialogoInf("SESION FINALIZADA");
@@ -127,16 +143,29 @@ public class HomeFragment extends Fragment {
         lv_asistenacia.setOnItemClickListener((adapterView, view, i, l) -> {
             if(SesionControl.validarSesion()){
                 Asistencia item = asistenciaAdaptar.getItem(i);
+                if(item.getEnviado()==1){
+                    DialogoInf("el registro del trabajador "+item.getTrabajador().getNombre()+" para el día "+ Settings.getInstanacia().getFECHA()
+                            +" no se puede editar, porque ya se envio al departamento de nóminas.\nComuniquese con el departamento de nóminas para más información.");
+                    return;
+                }
+
                 HomeFragmentDirections.ActionNavHomeToCapturaFragment action
                         = HomeFragmentDirections.actionNavHomeToCapturaFragment(item.getTrabajador().getNumero());
                 action.setIdAsistencia(item.getId());
-                //action.setTrabajador(item.getTrabajador());
-                //action.setAsistenacia(item);
+
                 Navigation.findNavController(getActivity(),fabBarcode.getId()).navigate(action);
             }else{
                 DialogoInf("SESION FINALIZADA");
             }
         });
+    }
+
+    public static void actualizar(Context context){
+        List<Asistencia> asistencia = AsistenciaControl.getAsistenciaDia(context);
+        asistenciaAdaptar.clear();
+        asistenciaAdaptar.addAll(asistencia);
+        asistenciaAdaptar.notifyDataSetChanged();
+
     }
 
     private void DialogoEliminar(Asistencia asistencia){

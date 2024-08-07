@@ -96,8 +96,8 @@ public class SettingDAO implements ISettingDAO{
 
             values.put(SETTINGS_DATE,settings.getDATE().getTime());
             values.put(SETTINGS_FECHA,settings.getFECHA());
-            values.put(SETTINGS_USUARIO,settings.getURL());
-            //values.put(SETTINGS_JORNADA_FINALIZADA,Settings.FIN_JORNADA);
+            values.put(SETTINGS_USUARIO,settings.getUSUARIO());
+            values.put(SETTINGS_JORNADA_FINALIZADA,settings.getFIN_JORNADA());
 
             String[] args = new String []{ "1"};
             long insert = data.update(TABLA_SETTINGS,  values,SETTINGS_ID+"=?",args);

@@ -11,6 +11,7 @@ import com.example.capturahoras.datos.Settings.ISettingDAO;
 import com.example.capturahoras.datos.Settings.SettingDAO;
 import com.example.capturahoras.modelo.Settings;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,12 +34,28 @@ public class SesionControl {
             settings.setDATE(new Date());
             settings.setFECHA(Complementos.convertirDateAstring2(settings.getDATE()));
             settings.setUSUARIO("");
-            settings.setUSUARIO("");
             settings.setFIN_JORNADA(0);
 
             settingsDAO.guardar(settings);
         }
 
+        return res;
+    }
+
+    public static boolean reiniciarSession(String fechaInicio) throws ParseException {
+        FileLog.i(Complementos.TAG_COFIG,"inicializar sesion");
+        ISettingDAO settingsDAO = new SettingDAO(Settings.CONTEXT);
+        boolean res = true;
+        Settings settings = settingsDAO.leerPorId(1);
+
+        if(settings.getDATE() != null){
+            Long aLong = Complementos.convertirStringAlong(fechaInicio, "00:00");
+            settings.setDATE(new Date(aLong));
+            settings.setFECHA(fechaInicio);
+            settings.setFIN_JORNADA(0);
+
+            settingsDAO.actualizar(settings);
+        }
         return res;
     }
 
@@ -59,10 +76,10 @@ public class SesionControl {
             return true;
 
 
-        settings.setDATE(actual);
-        settings.setFECHA(fechaActual);
-        settings.setUSUARIO("");
-        settings.setFIN_JORNADA(0);
+        //settings.setDATE(actual);
+        //settings.setFECHA(fechaActual);
+        //settings.setUSUARIO(settings.getUSUARIO());
+        //settings.setFIN_JORNADA(0);
 
         boolean b = new SettingDAO(Settings.CONTEXT).updateFecha(settings.getDATE(),settings.getFECHA());
         FileLog.i(Complementos.TAG_COFIG,"respuesta "+b);

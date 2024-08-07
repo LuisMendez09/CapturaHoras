@@ -1,5 +1,6 @@
 package com.example.capturahoras;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.example.capturahoras.modelo.Settings;
 import com.example.capturahoras.ui.dialogos.DialogCargarCatalogos;
 import com.example.capturahoras.ui.dialogos.DialogoProgreso;
 import com.example.capturahoras.ui.dialogos.Dialogs;
+import com.example.capturahoras.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.text.ParseException;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements DialogoProgreso.actualizacionCatalogos, DialogCargarCatalogos.IDialogo{
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        menu.findItem(R.id.action_cambiar).setTitle(Settings.getInstanacia().getFECHA());
         return true;
     }
 
@@ -94,13 +100,14 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
 
                 //dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
                 break;
-            /*case R.id.action_actualizarCampos:
-                FileLog.e(Complementos.TAG_MAIN, "preciono menu actualizar campos ");
-                new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.CAMPOS_UPDATE,this);
-                //    break;
-                //}
-                dialogoInf("Session no finalizada\nfinalize sesion para enviar los registros");
-                break;*/
+            case R.id.action_cambiar:
+                FileLog.e(Complementos.TAG_MAIN, "preciono menu cambiar de dia de captura");
+                if (SesionControl.validarSesion()){
+                    dialogoInf("Debe de finalizar la sessión actual para cambiar de día");
+                    break;
+                }
+                seleccionarDia(item);
+                break;
             case R.id.action_importar:
                     FileLog.i(Complementos.TAG_MAIN, "actualizar catalogos");
                     new DialogoProgreso(MainActivity.this,this, ImportarDatos.KEY_CATALOGOS,ImportarDatos.TODOS,this);
@@ -117,6 +124,27 @@ public class MainActivity extends AppCompatActivity implements DialogoProgreso.a
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void seleccionarDia(MenuItem item){
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        //item.setTitle(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year)
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,(view, year, monthOfYear, dayOfMonth) -> {
+            String fecha = String.format("%02d", dayOfMonth) + "/" + String.format("%02d", monthOfYear+ 1)  + "/" + year;
+            try {
+                SesionControl.reiniciarSession(fecha);
+                HomeFragment.actualizar(MainActivity.this);
+                item.setTitle(fecha);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                FileLog.e("Reiniciar session",e.getMessage());
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 
     private void dialogoInf(String mensaje) {

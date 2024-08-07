@@ -7,10 +7,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_fin_jornada">Finalizar Jornada</string>
     <string name="action_enviar">Enviar Informacion</string>
+    <string name="action_cambiar">Cambiar dia de captura</string>
     <string name="action_actualizarCampos">Actualziar Campos</string>
     <string name="action_importar">Importar catalogos</string>
 
-    <string name="menu_home">Asistencias del dia</string>
+    <string name="menu_home">Asistencias</string>
     <string name="menu_captura">Asistencia</string>
     <string name="menu_detalle">Detalle del campo</string>
     <string name="menu_gallery">Gallery</string>
